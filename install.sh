@@ -76,9 +76,8 @@ system_tweaks(){
 main(){
   require_arch
   install_native
-  # Uncomment if you begin using AUR lists:
-  # ensure_paru
-  # install_aur
+  ensure_paru
+  install_aur
   link_all
   system_tweaks
   msg "✅ Environment installation complete"
