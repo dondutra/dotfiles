@@ -1,22 +1,19 @@
-from libqtile import bar, layout, widget, hook
-from libqtile.config import Key, Group, Match
+from libqtile import bar, layout, widget, hook, qtile
+from libqtile.config import Key, Group, Match, Screen
 from libqtile.lazy import lazy
 import os, subprocess
 
-mod = "mod4"  # Tecla SUPER
-terminal = "xterm"  # Luego lo cambiamos por tu terminal favorita
+mod = "mod4"         # Super/Windows key
+terminal = "xterm"   # cámbialo luego a "alacritty" o "kitty"
 
-# Lanzar autostart
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser("~/.config/qtile/autostart.sh")
     subprocess.Popen([home])
 
-# Teclas básicas
 keys = [
     # Lanzadores
     Key([mod], "Return", lazy.spawn(terminal), desc="Terminal"),
-    Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Rofi (si lo instalas)"),
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Logout Qtile"),
 
@@ -39,14 +36,12 @@ keys = [
     Key([mod, "control"], "k", lazy.layout.grow_up()),
     Key([mod], "n", lazy.layout.normalize()),
 
-    # Cambiar layout
-    Key([mod], "space", lazy.next_layout(), desc="Next layout"),
-
-    # Flotar puntualmente (para diálogos y casos raros)
-    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
+    # Cambiar layout / flotar puntual
+    Key([mod], "space", lazy.next_layout()),
+    Key([mod], "f", lazy.window.toggle_floating()),
 ]
 
-# Grupos (workspaces) 1..9
+# Workspaces 1..9
 groups = [Group(str(i)) for i in range(1, 10)]
 for i in groups:
     keys.extend([
@@ -54,71 +49,59 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
 
-# Layouts: tiling principal y un floating de apoyo
 layouts = [
     layout.MonadTall(border_focus="#7aa2f7", border_normal="#3b4261", border_width=2, margin=6),
     layout.Max(),
     layout.Floating(border_focus="#7aa2f7", border_normal="#3b4261", border_width=2),
 ]
 
-# Widgets de la barra
+# --- Widgets ---
 def net_widget():
-    # Si usas Wi-Fi: widget.Wlan(interface="wlp2s0", format="{essid} {percent:2.0%}")
-    return widget.Net(format="{down} ↓↑ {up}", interface=None)  # ajusta interface si quieres
+    # Ajusta 'interface' a tu NIC si quieres (p.ej. "enp0s3"). None = auto
+    return widget.Net(format="{down} ↓↑ {up}", interface="enp0s3")
 
-screens = [
-    # Barra superior
-    # Estética minimalista con un poquito de color
-    # Tip: instala una nerd font para mejores iconos (lo añadimos al script luego)
-    type("Screen", (), {})()
+bar_widgets = [
+    widget.GroupBox(
+        highlight_method="block",
+        inactive="#a9b1d6",
+        active="#e5e9f0",
+        this_current_screen_border="#7aa2f7",
+        block_highlight_text_color="#1a1b26",
+        rounded=True,
+        margin_x=4, padding_x=6,
+    ),
+    widget.Prompt(),
+    widget.Spacer(),
+    widget.Clock(
+        format="%a %d %b %H:%M",
+        mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("gsimplecal")}
+    ),
+    widget.Spacer(length=12),
+    # En VM no hay batería; deja comentado si molesta:
+    # widget.Battery(format="{char} {percent:2.0%}", charge_char="", discharge_char=" "),
+    # widget.Spacer(length=12),
+    widget.PulseVolume(limit_max_volume=True, step=2),
+    widget.Spacer(length=12),
+    net_widget(),
+    widget.Spacer(length=12),
+    widget.Systray(),
+    widget.Spacer(length=6),
 ]
-from libqtile import Screen
+
 screens = [
     Screen(
         top=bar.Bar(
-            [
-                widget.GroupBox(
-                    highlight_method="block",
-                    inactive="#a9b1d6",
-                    active="#e5e9f0",
-                    this_current_screen_border="#7aa2f7",
-                    block_highlight_text_color="#1a1b26",
-                    rounded=True,
-                    margin_x=4,
-                    padding_x=6,
-                ),
-                widget.Prompt(),
-                widget.Spacer(),
-
-                # Reloj con "microcalendario" (abre gsimplecal al click)
-                widget.Clock(format="%a %d %b %H:%M", mouse_callbacks={"Button1": lambda: lazy.spawn("gsimplecal")()}),
-
-                widget.Spacer(length=12),
-                widget.Battery(format="{char} {percent:2.0%}", charge_char="", discharge_char=" "),
-                widget.Spacer(length=12),
-                widget.PulseVolume(limit_max_volume=True, step=2),
-                widget.Spacer(length=12),
-                net_widget(),
-                widget.Spacer(length=12),
-
-                widget.Systray(),
-                widget.Spacer(length=6),
-            ],
+            bar_widgets,
             26,
-            background="#1a1b26cc",  # barra semitransparente (cc ~ 80% opacidad)
+            background="#1a1b26cc",  # semitransparente
             margin=[4, 6, 0, 6],
         ),
     ),
 ]
 
-widget_defaults = dict(
-    font="Sans",
-    fontsize=12,
-    padding=6,
-)
+widget_defaults = dict(font="Sans", fontsize=12, padding=6)
 extension_defaults = widget_defaults.copy()
 
-# Flotantes por clase/tipo (diálogos, etc.)
 floating_layout = layout.Floating(
     border_focus="#7aa2f7",
     float_rules=[
