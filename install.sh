@@ -24,7 +24,7 @@ ensure_paru(){
   sudo pacman -S --needed --noconfirm base-devel git
   local tmp; tmp="$(mktemp -d)"
   pushd "$tmp" >/dev/null
-  git clone https://aur.archlinux.org/paru.git
+  git clone https://aur.archlinux.org/paru-bin.git
   cd paru
   makepkg -si --noconfirm
   popd >/dev/null
