@@ -1,0 +1,17 @@
+gsimplecal
+lightdm
+lightdm-gtk-greeter
+lightdm-gtk-greeter-settings
+lxappearance
+network-manager-applet
+pavucontrol
+picom
+pipewire
+pipewire-pulse
+pulseaudio-alsa
+qtile
+wireplumber
+xorg-server
+xorg-setxkbmap
+xorg-xinit
+xorg-xrandr
