@@ -1,62 +1,67 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# === Variables ===
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ENV_FILE="$HOME/.config/dotfiles/env"
 
 msg(){ printf "\n\033[1;32m==>\033[0m %s\n" "$*"; }
-warn(){ printf "\n\033[1;33m!!\033[0m %s\n" "$*"; }
 
+# === Detect Arch Linux ===
 require_arch(){
-  command -v pacman >/dev/null || { echo "This installer requires Arch (pacman)."; exit 1; }
+  command -v pacman >/dev/null || { echo "This installer requires Arch Linux (pacman)."; exit 1; }
 }
 
-detect_environment(){
-  # Detect if we are running inside a virtual machine
-  if systemd-detect-virt --quiet; then
-    IS_VM=1
+# === Detect if running in a VM ===
+detect_vm(){
+  if hostnamectl | grep -iq "virtualbox\|vmware\|kvm"; then
+    echo "IS_VM=1" > "$ENV_FILE"
   else
-    IS_VM=0
+    echo "IS_VM=0" > "$ENV_FILE"
   fi
-  export DOTFILES_IS_VM="$IS_VM"
-
-  # Persist a simple env file other components can read (e.g. Qtile)
-  mkdir -p "$HOME/.config/dotfiles"
-  printf "IS_VM=%s\n" "$IS_VM" > "$HOME/.config/dotfiles/env"
-  msg "Environment detected: IS_VM=${IS_VM}"
 }
 
+# === Install native packages with pacman ===
 install_native(){
   local list="$REPO_DIR/packages-native.txt"
+
+  # Ensure file exists
+  [ -f "$list" ] || { msg "Creating empty packages-native.txt"; touch "$list"; return 0; }
   [ -s "$list" ] || { msg "No native packages to install."; return 0; }
+
   msg "Installing native packages (pacman)"
   sudo pacman -Syu --noconfirm
-  # shellcheck disable=SC2046
   sudo pacman -S --needed --noconfirm $(grep -v '^\s*#' "$list" | tr '\n' ' ') || true
 }
 
+# === Install paru if missing ===
 ensure_paru(){
   command -v paru >/dev/null && return 0
-  msg "Installing paru-bin (AUR helper, prebuilt)"
+  msg "Installing paru (AUR helper)"
   sudo pacman -S --needed --noconfirm base-devel git
   local tmp; tmp="$(mktemp -d)"
   pushd "$tmp" >/dev/null
-  git clone https://aur.archlinux.org/paru-bin.git
-  cd paru-bin
+  git clone https://aur.archlinux.org/paru.git
+  cd paru
   makepkg -si --noconfirm
   popd >/dev/null
   rm -rf "$tmp"
 }
 
+# === Install AUR packages with paru ===
 install_aur(){
   local list="$REPO_DIR/packages-aur.txt"
+
+  # Ensure file exists
+  [ -f "$list" ] || { msg "Creating empty packages-aur.txt"; touch "$list"; return 0; }
   [ -s "$list" ] || { msg "No AUR packages to install."; return 0; }
+
   msg "Installing AUR packages (paru)"
-  # shellcheck disable=SC2046
   paru -S --needed --noconfirm --skipreview $(grep -v '^\s*#' "$list" | tr '\n' ' ') || true
 }
 
+# === Symlink dotfiles ===
 link_dotfile(){
-  # link_dotfile <path_under_repo_dotfiles> <absolute_destination>
   local src="$REPO_DIR/dotfiles/$1"
   local dst="$2"
   mkdir -p "$(dirname "$dst")"
@@ -68,47 +73,47 @@ link_dotfile(){
 
 link_all(){
   msg "Linking dotfiles (symlinks)"
-  # Qtile / Picom
   [ -d "$REPO_DIR/dotfiles/.config/qtile" ] && link_dotfile ".config/qtile" "$HOME/.config/qtile"
   [ -d "$REPO_DIR/dotfiles/.config/picom" ] && link_dotfile ".config/picom" "$HOME/.config/picom"
-  # Terminal + Rofi
   [ -d "$REPO_DIR/dotfiles/.config/alacritty" ] && link_dotfile ".config/alacritty" "$HOME/.config/alacritty"
-  [ -d "$REPO_DIR/dotfiles/.config/rofi" ] && link_dotfile ".config/rofi" "$HOME/.config/rofi"
-  # Common extras
   [ -f "$REPO_DIR/dotfiles/.zshrc" ] && link_dotfile ".zshrc" "$HOME/.zshrc"
   [ -f "$REPO_DIR/dotfiles/.gitconfig" ] && link_dotfile ".gitconfig" "$HOME/.gitconfig"
-  [ -d "$REPO_DIR/dotfiles/.config/nvim" ] && link_dotfile ".config/nvim" "$HOME/.config/nvim"
 }
 
-apply_system_files(){
-  # Apply system config files (if you track any in repo/system/*)
-  if [ -f "$REPO_DIR/system/lightdm-gtk-greeter.conf" ]; then
-    msg "Applying LightDM GTK greeter config"
-    sudo install -Dm644 "$REPO_DIR/system/lightdm-gtk-greeter.conf" /etc/lightdm/lightdm-gtk-greeter.conf
-  fi
-}
-
+# === System tweaks and LightDM config ===
 system_tweaks(){
-  msg "System tweaks / services"
-  # Enable LightDM login manager
+  msg "Applying system tweaks"
+
+  # Enable LightDM
   sudo systemctl enable lightdm || true
 
-  # Optional: set default shell to zsh if available
+  # Configure greeter fallback
+  if [ -f /etc/lightdm/lightdm-webkit2-greeter.conf ]; then
+    msg "Using WebKit2 greeter"
+    sudo sed -i 's/^#background_images =.*/background_images = \/usr\/share\/backgrounds/' /etc/lightdm/lightdm-webkit2-greeter.conf
+  else
+    msg "WebKit greeter not found, switching to GTK greeter"
+    sudo pacman -S --needed --noconfirm lightdm-gtk-greeter
+    sudo sed -i 's/^#greeter-session=.*/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
+  fi
+
+  # Optional: change shell to zsh
   if command -v zsh >/dev/null 2>&1; then chsh -s "$(command -v zsh)" "$USER" || true; fi
 
-  # Ensure X11 keyboard layout (system-wide you already set localectl)
+  # Set keyboard layout to ES system-wide
   if command -v setxkbmap >/dev/null 2>&1; then setxkbmap es || true; fi
 }
 
+# === Main ===
 main(){
   require_arch
-  detect_environment
+  detect_vm
   install_native
   ensure_paru
   install_aur
   link_all
-  apply_system_files
   system_tweaks
   msg "✅ Environment installation complete"
 }
+
 main "$@"
