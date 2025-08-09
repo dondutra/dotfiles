@@ -38,12 +38,12 @@ install_native(){
 # === Install paru if missing ===
 ensure_paru(){
   command -v paru >/dev/null && return 0
-  msg "Installing paru (AUR helper)"
+  msg "Installing paru-bin (AUR helper, prebuilt)"
   sudo pacman -S --needed --noconfirm base-devel git
   local tmp; tmp="$(mktemp -d)"
   pushd "$tmp" >/dev/null
-  git clone https://aur.archlinux.org/paru.git
-  cd paru
+  git clone https://aur.archlinux.org/paru-bin.git
+  cd paru-bin
   makepkg -si --noconfirm
   popd >/dev/null
   rm -rf "$tmp"
