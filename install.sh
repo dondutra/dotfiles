@@ -14,6 +14,7 @@ require_arch(){
 
 # === Detect if running in a VM ===
 detect_vm(){
+  mkdir -p "$HOME/.config/dotfiles"   # <-- create folder first
   if hostnamectl | grep -iq "virtualbox\|vmware\|kvm"; then
     echo "IS_VM=1" > "$ENV_FILE"
   else
