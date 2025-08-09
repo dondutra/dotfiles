@@ -1,41 +1,45 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# === Variables ===
+# --- Paths & helpers ---
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENV_FILE="$HOME/.config/dotfiles/env"
-
 msg(){ printf "\n\033[1;32m==>\033[0m %s\n" "$*"; }
+warn(){ printf "\n\033[1;33m!!\033[0m %s\n" "$*"; }
 
-# === Detect Arch Linux ===
+# --- Guards ---
 require_arch(){
   command -v pacman >/dev/null || { echo "This installer requires Arch Linux (pacman)."; exit 1; }
 }
 
-# === Detect if running in a VM ===
-detect_vm(){
-  mkdir -p "$HOME/.config/dotfiles"   # <-- create folder first
-  if hostnamectl | grep -iq "virtualbox\|vmware\|kvm"; then
+# --- Environment detection (persisted for Qtile) ---
+detect_environment(){
+  mkdir -p "$HOME/.config/dotfiles"
+  if systemd-detect-virt --quiet; then
     echo "IS_VM=1" > "$ENV_FILE"
   else
     echo "IS_VM=0" > "$ENV_FILE"
   fi
+  msg "Environment detected: $(cat "$ENV_FILE")"
 }
 
-# === Install native packages with pacman ===
+# --- Ensure package lists exist ---
+ensure_lists(){
+  [ -f "$REPO_DIR/packages-native.txt" ] || touch "$REPO_DIR/packages-native.txt"
+  [ -f "$REPO_DIR/packages-aur.txt" ]     || touch "$REPO_DIR/packages-aur.txt"
+}
+
+# --- Native packages (pacman) ---
 install_native(){
   local list="$REPO_DIR/packages-native.txt"
-
-  # Ensure file exists
-  [ -f "$list" ] || { msg "Creating empty packages-native.txt"; touch "$list"; return 0; }
-  [ -s "$list" ] || { msg "No native packages to install."; return 0; }
-
+  if [ ! -s "$list" ]; then msg "No native packages to install."; return 0; fi
   msg "Installing native packages (pacman)"
   sudo pacman -Syu --noconfirm
+  # shellcheck disable=SC2046
   sudo pacman -S --needed --noconfirm $(grep -v '^\s*#' "$list" | tr '\n' ' ') || true
 }
 
-# === Install paru if missing ===
+# --- Paru (prebuilt) for AUR ---
 ensure_paru(){
   command -v paru >/dev/null && return 0
   msg "Installing paru-bin (AUR helper, prebuilt)"
@@ -49,20 +53,18 @@ ensure_paru(){
   rm -rf "$tmp"
 }
 
-# === Install AUR packages with paru ===
+# --- AUR packages (paru) ---
 install_aur(){
   local list="$REPO_DIR/packages-aur.txt"
-
-  # Ensure file exists
-  [ -f "$list" ] || { msg "Creating empty packages-aur.txt"; touch "$list"; return 0; }
-  [ -s "$list" ] || { msg "No AUR packages to install."; return 0; }
-
+  if [ ! -s "$list" ]; then msg "No AUR packages to install."; return 0; fi
   msg "Installing AUR packages (paru)"
+  # shellcheck disable=SC2046
   paru -S --needed --noconfirm --skipreview $(grep -v '^\s*#' "$list" | tr '\n' ' ') || true
 }
 
-# === Symlink dotfiles ===
+# --- Dotfile linking ---
 link_dotfile(){
+  # link_dotfile <path_under_repo_dotfiles> <absolute_destination>
   local src="$REPO_DIR/dotfiles/$1"
   local dst="$2"
   mkdir -p "$(dirname "$dst")"
@@ -74,47 +76,72 @@ link_dotfile(){
 
 link_all(){
   msg "Linking dotfiles (symlinks)"
-  [ -d "$REPO_DIR/dotfiles/.config/qtile" ] && link_dotfile ".config/qtile" "$HOME/.config/qtile"
-  [ -d "$REPO_DIR/dotfiles/.config/picom" ] && link_dotfile ".config/picom" "$HOME/.config/picom"
-  [ -d "$REPO_DIR/dotfiles/.config/alacritty" ] && link_dotfile ".config/alacritty" "$HOME/.config/alacritty"
-  [ -f "$REPO_DIR/dotfiles/.zshrc" ] && link_dotfile ".zshrc" "$HOME/.zshrc"
-  [ -f "$REPO_DIR/dotfiles/.gitconfig" ] && link_dotfile ".gitconfig" "$HOME/.gitconfig"
+  [ -d "$REPO_DIR/dotfiles/.config/qtile" ]      && link_dotfile ".config/qtile"      "$HOME/.config/qtile"
+  [ -d "$REPO_DIR/dotfiles/.config/picom" ]      && link_dotfile ".config/picom"      "$HOME/.config/picom"
+  [ -d "$REPO_DIR/dotfiles/.config/alacritty" ]  && link_dotfile ".config/alacritty"  "$HOME/.config/alacritty"
+  [ -d "$REPO_DIR/dotfiles/.config/rofi" ]       && link_dotfile ".config/rofi"       "$HOME/.config/rofi"
+  [ -f "$REPO_DIR/dotfiles/.zshrc" ]             && link_dotfile ".zshrc"             "$HOME/.zshrc"
+  [ -f "$REPO_DIR/dotfiles/.gitconfig" ]         && link_dotfile ".gitconfig"         "$HOME/.gitconfig"
 }
 
-# === System tweaks and LightDM config ===
-system_tweaks(){
-  msg "Applying system tweaks"
-
-  # Enable LightDM
-  sudo systemctl enable lightdm || true
-
-  # Configure greeter fallback
-  if [ -f /etc/lightdm/lightdm-webkit2-greeter.conf ]; then
-    msg "Using WebKit2 greeter"
-    sudo sed -i 's/^#background_images =.*/background_images = \/usr\/share\/backgrounds/' /etc/lightdm/lightdm-webkit2-greeter.conf
-  else
-    msg "WebKit greeter not found, switching to GTK greeter"
-    sudo pacman -S --needed --noconfirm lightdm-gtk-greeter
-    sudo sed -i 's/^#greeter-session=.*/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
+# --- System files from repo (optional) ---
+apply_system_files(){
+  # Example: LightDM GTK greeter config if tracked
+  if [ -f "$REPO_DIR/system/lightdm-gtk-greeter.conf" ]; then
+    msg "Applying LightDM GTK greeter config"
+    sudo install -Dm644 "$REPO_DIR/system/lightdm-gtk-greeter.conf" /etc/lightdm/lightdm-gtk-greeter.conf
   fi
-
-  # Optional: change shell to zsh
-  if command -v zsh >/dev/null 2>&1; then chsh -s "$(command -v zsh)" "$USER" || true; fi
-
-  # Set keyboard layout to ES system-wide
-  if command -v setxkbmap >/dev/null 2>&1; then setxkbmap es || true; fi
 }
 
-# === Main ===
+# --- Ensure a working display manager & session ---
+ensure_qtile_session(){
+  # Make sure a Qtile session file exists (LightDM uses /usr/share/xsessions)
+  if [ ! -f /usr/share/xsessions/qtile.desktop ]; then
+    msg "Creating /usr/share/xsessions/qtile.desktop"
+    sudo install -d /usr/share/xsessions
+    sudo tee /usr/share/xsessions/qtile.desktop >/dev/null <<'EOF'
+[Desktop Entry]
+Name=Qtile
+Comment=Qtile Session
+Exec=qtile start
+Type=Application
+Keywords=wm;tiling
+EOF
+  fi
+}
+
+ensure_greeter_gtk(){
+  # Force a safe greeter by default (GTK)
+  sudo pacman -S --needed --noconfirm lightdm lightdm-gtk-greeter
+  if grep -q '^greeter-session=' /etc/lightdm/lightdm.conf 2>/dev/null; then
+    sudo sed -i 's/^greeter-session=.*/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
+  else
+    echo 'greeter-session=lightdm-gtk-greeter' | sudo tee -a /etc/lightdm/lightdm.conf >/dev/null
+  fi
+}
+
+ensure_graphical_target(){
+  sudo systemctl set-default graphical.target || true
+}
+
+enable_services(){
+  sudo systemctl enable lightdm.service || true
+}
+
+# --- Main ---
 main(){
   require_arch
-  detect_vm
+  detect_environment
+  ensure_lists
   install_native
   ensure_paru
   install_aur
   link_all
-  system_tweaks
-  msg "✅ Environment installation complete"
+  apply_system_files
+  ensure_qtile_session
+  ensure_greeter_gtk
+  ensure_graphical_target
+  enable_services
+  msg "✅ Environment installation complete. Reboot to enter the graphical login."
 }
-
 main "$@"
