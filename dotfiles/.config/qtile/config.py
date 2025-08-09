@@ -30,6 +30,7 @@ def autostart():
 keys = [
     # Launch terminal
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "m", lazy.spawn("rofi -show drun"), desc="Rofi app launcher"),
 
     # Restart / reload Qtile
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile (full)"),
