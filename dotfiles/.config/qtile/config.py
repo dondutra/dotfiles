@@ -1,10 +1,19 @@
+def _is_vm():
+    try:
+        with open(os.path.expanduser("~/.config/dotfiles/env")) as f:
+            for line in f:
+                if line.strip().startswith("IS_VM="):
+                    return line.strip().split("=",1)[1] == "1"
+    except FileNotFoundError:
+        return False
+import os
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Key, Group, Match, Screen
 from libqtile.lazy import lazy
 import os, subprocess
 
-mod = "mod4"         # Super/Windows key
-terminal = "xterm"   # cámbialo luego a "alacritty" o "kitty"
+mod = "mod1" if _is_vm() else "mod4"
+terminal = "alacritty"
 
 @hook.subscribe.startup_once
 def autostart():
