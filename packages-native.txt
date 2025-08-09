@@ -16,3 +16,4 @@ xorg-setxkbmap
 xorg-xinit
 xorg-xrandr
 python-psutil
+ttf-jetbrains-mono-nerd
