@@ -3,12 +3,12 @@ lightdm
 lightdm-gtk-greeter
 lightdm-gtk-greeter-settings
 lxappearance
+networkmanager
 network-manager-applet
 pavucontrol
 picom
 pipewire
 pipewire-pulse
-pulseaudio-alsa
 qtile
 wireplumber
 xorg-server
@@ -17,4 +17,6 @@ xorg-xinit
 xorg-xrandr
 python-psutil
 ttf-jetbrains-mono-nerd
-light-locker
+alacritty
+rofi
+feh
