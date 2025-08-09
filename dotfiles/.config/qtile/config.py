@@ -4,89 +4,108 @@ from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Key, Group, Match, Screen
 from libqtile.lazy import lazy
 
-# Detect if we are in a VM
-def _is_vm():
+# --- Environment helpers ------------------------------------------------------
+
+def _is_vm() -> bool:
+    """Return True if running inside a virtual machine (set by installer)."""
     try:
-        with open(os.path.expanduser("~/.config/dotfiles/env")) as f:
+        env_file = os.path.expanduser("~/.config/dotfiles/env")
+        with open(env_file) as f:
             for line in f:
                 if line.strip().startswith("IS_VM="):
                     return line.strip().split("=", 1)[1] == "1"
     except FileNotFoundError:
-        return False
+        pass
+    return False
 
-# Mod key: Alt in VM, Super on real hardware
+def _pick_net_interface(default=None):
+    """
+    Pick a reasonable network interface name for the Net widget.
+    Prefer a common VM nic if present; otherwise return None (auto).
+    """
+    candidates = ["enp0s3", "enp0s8", "eth0", "wlp2s0", "wlan0"]
+    for c in candidates:
+        if os.path.exists(f"/sys/class/net/{c}"):
+            return c
+    return default
+
+# --- Core settings ------------------------------------------------------------
+
+# Alt (mod1) on VMs to avoid Super conflicts on host; Super (mod4) on hardware.
 mod = "mod1" if _is_vm() else "mod4"
 
-# Default terminal
 terminal = "alacritty"
 
-# Autostart script (runs once at startup)
+# --- Autostart ----------------------------------------------------------------
+
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser("~/.config/qtile/autostart.sh")
-    subprocess.Popen([home])
+    """Run a one-shot autostart script."""
+    path = os.path.expanduser("~/.config/qtile/autostart.sh")
+    if os.path.isfile(path) and os.access(path, os.X_OK):
+        subprocess.Popen([path])
 
-# Keybindings
+# --- Keybindings --------------------------------------------------------------
+
 keys = [
-    # Launch terminal
+    # Launchers
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "m", lazy.spawn("rofi -show drun"), desc="Rofi app launcher"),
 
-    # Restart / reload Qtile
-    Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile (full)"),
+    # Session / config control
+    Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Qtile config"),
-
-    # Quit Qtile session
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Logout from Qtile"),
-
-    # Close focused window
     Key([mod], "w", lazy.window.kill(), desc="Close focused window"),
+    Key([mod], "l", lazy.spawn("/usr/bin/dm-tool switch-to-greeter"), desc="Lock screen (LightDM)"),
 
-    # Focus movement
-    Key([mod], "h", lazy.layout.left(), desc="Move focus left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    # Focus movement (arrow keys)
+    Key([mod], "Left",  lazy.layout.left(),  desc="Focus left"),
+    Key([mod], "Right", lazy.layout.right(), desc="Focus right"),
+    Key([mod], "Up",    lazy.layout.up(),    desc="Focus up"),
+    Key([mod], "Down",  lazy.layout.down(),  desc="Focus down"),
 
-    # Move windows
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    # Move windows (arrow keys)
+    Key([mod, "shift"], "Left",  lazy.layout.shuffle_left(),  desc="Move window left"),
+    Key([mod, "shift"], "Right", lazy.layout.shuffle_right(), desc="Move window right"),
+    Key([mod, "shift"], "Up",    lazy.layout.shuffle_up(),    desc="Move window up"),
+    Key([mod, "shift"], "Down",  lazy.layout.shuffle_down(),  desc="Move window down"),
 
-    # Resize windows
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    # Resize windows (arrow keys)
+    Key([mod, "control"], "Left",  lazy.layout.grow_left(),  desc="Grow left"),
+    Key([mod, "control"], "Right", lazy.layout.grow_right(), desc="Grow right"),
+    Key([mod, "control"], "Up",    lazy.layout.grow_up(),    desc="Grow up"),
+    Key([mod, "control"], "Down",  lazy.layout.grow_down(),  desc="Grow down"),
     Key([mod], "n", lazy.layout.normalize(), desc="Normalize window sizes"),
 
-    # Change layout / toggle floating
-    Key([mod], "space", lazy.next_layout(), desc="Switch to next layout"),
-    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating mode"),
+    # Layout
+    Key([mod], "space", lazy.next_layout(), desc="Next layout"),
+    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
 ]
 
-# Workspaces 1..9
-groups = [Group(str(i)) for i in range(1, 10)]
-for i in groups:
-    keys.extend([
-        Key([mod], i.name, lazy.group[i.name].toscreen(), desc=f"Switch to group {i.name}"),
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name), desc=f"Move window to group {i.name}"),
-    ])
+# --- Groups (workspaces) ------------------------------------------------------
 
-# Layouts
+groups = [Group(str(i)) for i in range(1, 10)]
+for g in groups:
+    keys += [
+        Key([mod], g.name, lazy.group[g.name].toscreen(), desc=f"Switch to group {g.name}"),
+        Key([mod, "shift"], g.name, lazy.window.togroup(g.name), desc=f"Move window to group {g.name}"),
+    ]
+
+# --- Layouts ------------------------------------------------------------------
+
 layouts = [
     layout.MonadTall(border_focus="#7aa2f7", border_normal="#3b4261", border_width=2, margin=6),
     layout.Max(),
     layout.Floating(border_focus="#7aa2f7", border_normal="#3b4261", border_width=2),
 ]
 
-# Network widget helper
-def net_widget():
-    # Adjust 'interface' to your NIC if needed; None = auto
-    return widget.Net(format="{down} ↓↑ {up}", interface="enp0s3")
+# --- Widgets / Bar ------------------------------------------------------------
 
-# Bar widgets
+def net_widget():
+    iface = _pick_net_interface()
+    return widget.Net(format="{down} ↓↑ {up}", interface=iface)
+
 bar_widgets = [
     widget.GroupBox(
         highlight_method="block",
@@ -112,34 +131,31 @@ bar_widgets = [
     widget.Spacer(length=6),
 ]
 
-# Screens
 screens = [
     Screen(
         top=bar.Bar(
             bar_widgets,
             26,
-            background="#1a1b26cc",  # semi-transparent
+            background="#1a1b26cc",  # semi-transparent bar (no fades elsewhere)
             margin=[4, 6, 0, 6],
         ),
     ),
 ]
 
-# Defaults
+# --- Defaults / Behavior ------------------------------------------------------
+
 widget_defaults = dict(font="Sans", fontsize=12, padding=6)
 extension_defaults = widget_defaults.copy()
 
-# Floating layout rules
 floating_layout = layout.Floating(
     border_focus="#7aa2f7",
     float_rules=[
         *layout.Floating.default_float_rules,
-        Match(title='Confirmation'),
-        Match(wm_class='pavucontrol'),
-        Match(wm_class='ssh-askpass'),
-    ]
+        Match(title="Confirmation"),
+        Match(wm_class="pavucontrol"),
+        Match(wm_class="ssh-askpass"),
+    ],
 )
 
-# Behavior settings
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-
