@@ -31,13 +31,6 @@ keys = [
     Key([mod, "control"], "Up", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
-    # --- [LAUNCHERS] ---
-
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-
-    Key([mod], "m", lazy.spawn("rofi -show run"), desc="Launch rofi menu"),
-
-
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
@@ -47,7 +40,19 @@ keys = [
         lazy.window.toggle_fullscreen(),
         desc="Toggle fullscreen on the focused window",
     ),
+
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
+
+
+    # --- [LAUNCHERS] ---
+
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+
+    Key([mod], "m", lazy.spawn("rofi -show run"), desc="Launch rofi menu"),
+
+
+    # --- [CONTROL] ---
+    
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),

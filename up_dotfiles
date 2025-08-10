@@ -1,0 +1,1 @@
+cp ~/dotfiles/config/qtile/config.py ~/.config/qtile/config.py
