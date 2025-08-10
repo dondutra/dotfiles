@@ -1,0 +1,11 @@
+git
+openssh
+xorg
+lightdm
+lightdm-gtk-greeter
+qtile
+xterm
+code
+firefox
+alacritty
+tree

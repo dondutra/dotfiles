@@ -1,1 +1,1 @@
-cp ~/dotfiles/.config/qtile/config.py ~/.config/qtile/config.py
+cp ~/dotfiles/config/qtile/config.py ~/.config/qtile/config.py
