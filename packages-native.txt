@@ -20,3 +20,4 @@ pamixer
 brightnessctl
 network-manager-applet
 xorg-xinit
+base-devel
