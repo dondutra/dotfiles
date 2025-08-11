@@ -4,9 +4,15 @@ import libqtile.resources
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+import subprocess
+from libqtile import hook
 
 mod = "mod1" # alt_key, mod4 for windows_key
 terminal = "alacritty"
+
+@hook.subscribe.startup_once
+def autostart():
+    subprocess.Popen([os.path.expanduser("~/.config/qtile/autostart.sh")])
 
 keys = [
     # --- [WINDOWS] ---
