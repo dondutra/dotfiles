@@ -51,6 +51,12 @@ keys = [
     Key([mod], "m", lazy.spawn("rofi -show run"), desc="Launch rofi menu"),
 
 
+    # --- [VOLUME] ---
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pamixer --decrease 5")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pamixer --increase 5")),
+    Key([], "XF86AudioMute", lazy.spawn("pamixer --toggle-mute")),
+
+
     # --- [CONTROL] ---
     
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
