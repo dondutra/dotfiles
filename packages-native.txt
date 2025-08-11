@@ -10,3 +10,10 @@ firefox
 alacritty
 tree
 rofi
+feh
+ttf-dejavu
+ttf-liberation
+noto-fonts
+pulseaudio
+pavucontrol
+pamixer
