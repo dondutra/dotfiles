@@ -57,6 +57,11 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("pamixer --toggle-mute")),
 
 
+    # --- [BRIGHTNESS] ---
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
+
+
     # --- [CONTROL] ---
     
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
