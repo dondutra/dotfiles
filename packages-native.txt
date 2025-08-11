@@ -17,3 +17,6 @@ noto-fonts
 pulseaudio
 pavucontrol
 pamixer
+brightnessctl
+network-manager-applet
+xorg-xinit
