@@ -73,6 +73,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "l", lazy.spawn("dm-tool lock"), desc="Lock the session"),
 ]
 
 # Add key bindings to switch VTs in Wayland.
