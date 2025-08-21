@@ -134,8 +134,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="sans",
-    fontsize=12,
+    font="UbuntuMono Nerd Font Mono",
+    fontsize=16,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
