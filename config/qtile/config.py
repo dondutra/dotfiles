@@ -70,7 +70,7 @@ keys = [
 
     # --- [CONTROL] ---
     
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile entirely"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "l", lazy.spawn("dm-tool lock"), desc="Lock the session"),
@@ -90,7 +90,7 @@ for vt in range(1, 8):
     )
 
 
-groups = [Group(i) for i in ["DEF", "WWW", "DEV"]]
+groups = [Group(i) for i in [" ", "󰖟 ", " "]]
 
 for i, group in enumerate(groups):
     actual_key = str(i + 1)
@@ -150,7 +150,7 @@ screens = [
                     foreground=["#ffffff", "#ffffff"],
                     background=["#000000", "#000000"],
                     font='UbuntuMono Nerd Font',
-                    fontsize=16,
+                    fontsize=19,
                     margin_y=3,
                     margin_x=0,
                     padding_y=8,
