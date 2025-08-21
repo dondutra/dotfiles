@@ -47,14 +47,14 @@ keys = [
         desc="Toggle fullscreen on the focused window",
     ),
 
-    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
+    Key([moSd], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
 
 
     # --- [LAUNCHERS] ---
 
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-
     Key([mod], "m", lazy.spawn("rofi -show run"), desc="Launch rofi menu"),
+    Key([mod], "b", lazy.spawn("firefox"), desc="Launch default browser"),
 
 
     # --- [VOLUME] ---
