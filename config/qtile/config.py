@@ -146,7 +146,20 @@ screens = [
         top=bar.Bar(
             [
                 # widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.GroupBox(
+                    foreground=["#ffffff", "#ffffff"],
+                    background=["#000000", "#000000"],
+                    font='UbuntuMono Nerd Font',
+                    fontsize=16,
+                    margin_y=3,
+                    margin_x=0,
+                    padding_y=8,
+                    padding_x=5,
+                    borderwidth=1,
+                    rounded=False,
+                    highlight_method='block',
+                    this_current_screen_border=["#9180bd", "#9180bd"]
+                ),
                 widget.WindowName(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
