@@ -24,3 +24,6 @@ base-devel
 htop
 ttf-ubuntu-mono-nerd
 volumeicon
+vlc
+imv
+unzip
