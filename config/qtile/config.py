@@ -47,7 +47,7 @@ keys = [
         desc="Toggle fullscreen on the focused window",
     ),
 
-    Key([moSd], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
+    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
 
 
     # --- [LAUNCHERS] ---
@@ -160,7 +160,12 @@ screens = [
                     highlight_method='block',
                     this_current_screen_border=["#9180bd", "#9180bd"]
                 ),
-                widget.WindowName(),
+                widget.WindowName(
+                    foreground=["#ffffff", "#ffffff"],
+                    background=["#000000", "#000000"],
+                    font='UbuntuMono Nerd Font',
+                    fontsize=13,
+                ),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
             ],
