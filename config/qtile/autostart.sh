@@ -1,4 +1,4 @@
 #!/bin/sh
-feh --bg-scale ~/dotfiles/images/monokuma-eye.png &
+feh --bg-fill ~/dotfiles/images/osagechan2.png &
 nm-applet &
 volumeicon &
