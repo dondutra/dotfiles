@@ -117,8 +117,15 @@ for i, group in enumerate(groups):
         ]
     )
 
+layout_conf = {
+    'border_focus': '#9180bd',
+    'border_width': 3,
+    'margin': 4
+}
+
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    #layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(**layout_conf),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -169,11 +176,11 @@ screens = [
                 widget.Systray(),
                 widget.Clock(format="%d/%m/%Y %a %H:%M"),
             ],
-            24,
+            30, # bar size
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
-        background="#000000",
+        background="#7a7a7a",
         wallpaper=logo,
         wallpaper_mode="center",
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
