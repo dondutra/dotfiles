@@ -23,3 +23,4 @@ xorg-xinit
 base-devel
 htop
 ttf-ubuntu-mono-nerd
+volumeicon
