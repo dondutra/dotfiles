@@ -167,7 +167,7 @@ screens = [
                     fontsize=13,
                 ),
                 widget.Systray(),
-                widget.Clock(format="%Y/%m/%d %a %H:%M"),
+                widget.Clock(format="%d/%m/%Y %a %H:%M"),
             ],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
