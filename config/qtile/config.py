@@ -172,9 +172,15 @@ screens = [
                     fmt="<b>{}</b>"
                 ),
                 widget.Systray(),
-                widget.Clock(format="%d/%m/%Y %a %H:%M"),
+                widget.Clock(
+                    format="%a %H:%M\n%d/%m/%Y",
+                    font='UbuntuMono Nerd Font',
+                    fontsize=14,
+                    markup=True,
+                    fmt="<b>{}</b>"
+                ),
             ],
-            30, # bar size
+            35, # bar size
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
