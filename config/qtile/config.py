@@ -168,10 +168,12 @@ screens = [
                     this_current_screen_border=["#9180bd", "#9180bd"]
                 ),
                 widget.WindowName(
-                    foreground=["#ffffff", "#ffffff"],
+                    foreground=["#9180bd", "#9180bd"],
                     background=["#000000", "#000000"],
                     font='UbuntuMono Nerd Font',
-                    fontsize=13,
+                    fontsize=15,
+                    markup=True,
+                    fmt="<b>{}</b>"
                 ),
                 widget.Systray(),
                 widget.Clock(format="%d/%m/%Y %a %H:%M"),
