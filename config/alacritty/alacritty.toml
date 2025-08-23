@@ -8,7 +8,7 @@ padding = { x = 8, y = 8 }
 normal = { family = "UbuntuMono Nerd Font", style = "Regular" }
 bold   = { family = "UbuntuMono Nerd Font", style = "Bold" }
 italic = { family = "UbuntuMono Nerd Font", style = "Italic" }
-size = 16.0
+size = 20.0
 
 [colors.primary]
 background = "#0b0b0d"   # gris casi negro
