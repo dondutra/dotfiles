@@ -27,3 +27,4 @@ volumeicon
 vlc
 imv
 unzip
+cbatticon
