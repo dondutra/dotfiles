@@ -28,3 +28,4 @@ vlc
 imv
 unzip
 cbatticon
+fastfetch
