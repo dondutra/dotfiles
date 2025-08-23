@@ -90,7 +90,7 @@ for vt in range(1, 8):
     )
 
 
-groups = [Group(i) for i in [" ", "󰖟 ", " "]]
+groups = [Group(i) for i in ["", "󰖟", ""]]
 
 for i, group in enumerate(groups):
     actual_key = str(i + 1)
@@ -156,13 +156,13 @@ screens = [
                 widget.GroupBox(
                     foreground=["#ffffff", "#ffffff"],
                     background=["#000000", "#000000"],
-                    font='UbuntuMono Nerd Font',
-                    fontsize=19,
-                    margin_y=3,
-                    margin_x=0,
-                    padding_y=8,
-                    padding_x=5,
-                    borderwidth=1,
+                    font='UbuntuMono Nerd Font Mono',
+                    fontsize=30,
+                    #margin_y=3,
+                    #margin_x=0,
+                    #padding_y=8,
+                    padding_x=8,
+                    #borderwidth=1,
                     rounded=False,
                     highlight_method='block',
                     this_current_screen_border=["#9180bd", "#9180bd"]
