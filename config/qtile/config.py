@@ -118,9 +118,9 @@ for i, group in enumerate(groups):
     )
 
 layout_conf = {
-    'border_focus': '#9180bd',
-    'border_width': 3,
-    'margin': 4
+    'border_focus': '#d1b3fc',
+    'border_width': 4,
+    'margin': 8
 }
 
 layouts = [
@@ -181,8 +181,10 @@ screens = [
                 ),
             ],
             35, # bar size
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            margin=[8, 8, 0, 8], # top, right, bottom, left
+            border_width=2,
+            border_color='#9180bd'
+            #["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         background="#7a7a7a",
         wallpaper=logo,
