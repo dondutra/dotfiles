@@ -1,6 +1,7 @@
 # alias for better default programs
 alias ls='exa --group-directories-first --icons --color=auto'
 alias lt='exa --tree --icons'
+alias cat='ccat'
 
 # === COLORES (hex -> truecolor ANSI) ===
 # Periwinkle, Dun, Non Photo Blue, Nyanza, Salmon Pink
