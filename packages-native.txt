@@ -29,3 +29,4 @@ imv
 unzip
 cbatticon
 fastfetch
+papirus-icon-theme

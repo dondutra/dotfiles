@@ -53,7 +53,7 @@ keys = [
     # --- [LAUNCHERS] ---
 
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "m", lazy.spawn("rofi -show run"), desc="Launch rofi menu"),
+    Key([mod], "m", lazy.spawn("rofi -show drun"), desc="Launch rofi menu"),
     Key([mod], "b", lazy.spawn("firefox"), desc="Launch default browser"),
 
 
@@ -147,7 +147,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-logo = os.path.join(os.path.dirname(libqtile.resources.__file__), "logo.png")
+wall = os.path.expanduser("~/.config/wallpapers/black-landscape.png")
 screens = [
     Screen(
         top=bar.Bar(
@@ -194,8 +194,8 @@ screens = [
             #["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         background="#7a7a7a",
-        wallpaper=logo,
-        wallpaper_mode="center",
+        wallpaper=wall,
+        wallpaper_mode="fill",
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
         # By default we handle these events delayed to already improve performance, however your system might still be struggling
         # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
