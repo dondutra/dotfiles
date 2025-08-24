@@ -1,3 +1,7 @@
+# alias for better default programs
+alias ls='exa --group-directories-first --icons --color=auto'
+alias lt='exa --tree --icons'
+
 # === COLORES (hex -> truecolor ANSI) ===
 # Periwinkle, Dun, Non Photo Blue, Nyanza, Salmon Pink
 PERIWINKLE='\[\e[38;2;218;196;247m\]'  # #DAC4F7
@@ -13,8 +17,8 @@ RESET='\[\e[0m\]'
 # - símbolo $       -> periwinkle
 PS1="${PERIWINKLE}\u@\h ${DUN}\w${RESET}\n${PERIWINKLE}\$ ${RESET}"
 
-# Colores para 'ls'
-alias ls='ls --color=auto'
+# Colores para 'ls' (not used, using exa instead)
+#alias ls='ls --color=auto'
 # Carga paleta base por defecto…
 eval "$(dircolors -b)"
 # …y sobrescribe lo que nos importa:

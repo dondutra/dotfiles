@@ -30,3 +30,4 @@ unzip
 cbatticon
 fastfetch
 papirus-icon-theme
+exa
