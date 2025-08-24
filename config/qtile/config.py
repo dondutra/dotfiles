@@ -153,8 +153,9 @@ screens = [
         top=bar.Bar(
             [
                 widget.WindowName(
-                    foreground=["#9180bd", "#9180bd"],
-                    background=["#000000", "#000000"],
+                    padding=12,
+                    foreground="#d1b3fc",
+                    #background=["#000000", "#000000"],
                     font='UbuntuMono Nerd Font',
                     fontsize=15,
                     markup=True,
@@ -174,9 +175,11 @@ screens = [
                     inactive='#7a7a7a',                      # grupos vacíos
                     rounded=False,
                 ),
-                widget.Spacer(), 
-                widget.Systray(),
+                widget.Spacer(),
+                widget.Systray(padding=12),
+                #widget.Sep(linewidth=1, padding=8, size_percent=60, foreground='#d1b3fc'),
                 widget.Clock(
+                    padding=12,
                     format="%a %H:%M\n%d/%m/%Y",
                     font='UbuntuMono Nerd Font',
                     fontsize=14,
