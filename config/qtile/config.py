@@ -152,17 +152,6 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                # widget.CurrentLayout(),
-                widget.GroupBox(
-                    foreground=["#ffffff", "#ffffff"],
-                    background=["#000000", "#000000"],
-                    font='UbuntuMono Nerd Font Mono',
-                    fontsize=30,
-                    padding_x=18,
-                    rounded=False,
-                    highlight_method='block',
-                    this_current_screen_border=["#9180bd", "#9180bd"]
-                ),
                 widget.WindowName(
                     foreground=["#9180bd", "#9180bd"],
                     background=["#000000", "#000000"],
@@ -171,6 +160,21 @@ screens = [
                     markup=True,
                     fmt="<b>{}</b>"
                 ),
+                widget.Spacer(),
+                # widget.CurrentLayout(),
+                widget.GroupBox(
+                    #foreground=["#ffffff", "#ffffff"],
+                    #background=["#000000", "#000000"],
+                    font='UbuntuMono Nerd Font Mono',
+                    fontsize=36,
+                    padding_x=10,
+                    highlight_method='text',
+                    this_current_screen_border="#d1b3fc",
+                    active='#ffffff',                        # grupos con ventanas (no seleccionados)
+                    inactive='#7a7a7a',                      # grupos vacíos
+                    rounded=False,
+                ),
+                widget.Spacer(), 
                 widget.Systray(),
                 widget.Clock(
                     format="%a %H:%M\n%d/%m/%Y",
