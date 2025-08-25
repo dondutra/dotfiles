@@ -1,43 +1,62 @@
-git
-openssh
-xorg
-lightdm
-lightdm-gtk-greeter
-qtile
-xterm
-code
-firefox
-alacritty
-tree
-rofi
-feh
+# --- Core / base tooling ---
+base-devel        # build tools for makepkg and compiling
+git               # version control
+openssh           # SSH client/server
+unzip             # unzip utility
+htop              # process monitor
+fastfetch         # system info (fast neofetch)
+exa               # modern ls replacement
+brightnessctl     # control display backlight
+
+# --- Display server / login ---
+xorg              # X.Org display server (meta)
+xorg-xinit        # startx/xinit
+lightdm           # display manager
+lightdm-gtk-greeter  # GTK greeter for LightDM
+
+# --- Window manager / desktop helpers ---
+qtile             # tiling window manager
+rofi              # launcher/application switcher
+feh               # lightweight image viewer; often used to set wallpaper
+
+# --- Terminals ---
+alacritty         # GPU-accelerated terminal emulator
+xterm             # fallback terminal emulator
+
+# --- File management ---
+thunar            # GUI file manager
+
+# --- Editors / IDEs ---
+code              # Visual Studio Code (OSS build, repo variant)
+
+# --- Web ---
+firefox           # web browser
+
+# --- Multimedia ---
+vlc               # media player
+imv               # image viewer
+papirus-icon-theme  # icon theme
+
+# --- Audio ---
+pulseaudio        # audio server
+pavucontrol       # PulseAudio mixer GUI
+pamixer           # CLI volume control
+volumeicon        # tray volume icon
+
+# --- Networking ---
+network-manager-applet  # NetworkManager tray applet
+
+# --- Power / tray utilities ---
+cbatticon         # battery tray icon
+
+# --- Fonts ---
 ttf-dejavu
 ttf-liberation
-noto-fonts
-pulseaudio
-pavucontrol
-pamixer
-brightnessctl
-network-manager-applet
-xorg-xinit
-base-devel
-htop
-ttf-ubuntu-mono-nerd
-volumeicon
-vlc
-imv
-unzip
-cbatticon
-fastfetch
-papirus-icon-theme
-exa
-neovim
-ranger
 noto-fonts
 noto-fonts-extra
 noto-fonts-cjk
 noto-fonts-emoji
+ttf-ubuntu-mono-nerd
 ttf-font-awesome
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
-thunar
