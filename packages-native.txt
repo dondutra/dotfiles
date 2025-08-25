@@ -31,3 +31,5 @@ cbatticon
 fastfetch
 papirus-icon-theme
 exa
+neovim
+ranger

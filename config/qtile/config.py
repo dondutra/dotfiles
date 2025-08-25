@@ -54,7 +54,8 @@ keys = [
 
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "m", lazy.spawn("rofi -show drun"), desc="Launch rofi menu"),
-    Key([mod], "b", lazy.spawn("firefox"), desc="Launch default browser"),
+    Key([mod], "b", lazy.spawn("zen-browser"), desc="Launch default browser"),
+    Key([mod], "e", lazy.spawn("thunar"), desc="Launch default file explorer"),
 
 
     # --- [VOLUME] ---
