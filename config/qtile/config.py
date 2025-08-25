@@ -1,127 +1,107 @@
-import os
+# ─────────────────────────────────────────────────────────────────────────────
+# dondutra dotfiles — Qtile configuration
+# yt:    youtube.com/@arkty
+# github: github.com/dondutra
+# Note: Free to use as long as this header remains, or there is an explicit
+#       mention of the creator (dondutra).
+# ─────────────────────────────────────────────────────────────────────────────
 
-import libqtile.resources
+import os
+import subprocess
+
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-import subprocess
 from libqtile import hook
 
-mod = "mod1" # alt_key, mod4 for windows_key
+# Mod key and preferred terminal
+mod = "mod1"          # Use Mod1 (Alt). Use "mod4" for Super/Windows if preferred.
 terminal = "alacritty"
 
+# Run autostart script once per session (spawns your helpers)
 @hook.subscribe.startup_once
 def autostart():
     subprocess.Popen([os.path.expanduser("~/.config/qtile/autostart.sh")])
 
+# ----------------------------------------------------------------------------- 
+# Key bindings
+# -----------------------------------------------------------------------------
 keys = [
     # --- [WINDOWS] ---
+    # Focus movement within the current layout
+    Key([mod], "Left",  lazy.layout.left(),  desc="Focus left"),
+    Key([mod], "Right", lazy.layout.right(), desc="Focus right"),
+    Key([mod], "Down",  lazy.layout.down(),  desc="Focus down"),
+    Key([mod], "Up",    lazy.layout.up(),    desc="Focus up"),
+    Key([mod], "space", lazy.layout.next(),  desc="Focus next window"),
 
-    # Switch between windows
-    Key([mod], "Left", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "Right", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "Down", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "Up", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    # Move windows within the layout
+    Key([mod, "shift"], "Left",  lazy.layout.shuffle_left(),  desc="Move window left"),
+    Key([mod, "shift"], "Right", lazy.layout.shuffle_right(), desc="Move window right"),
+    Key([mod, "shift"], "Down",  lazy.layout.shuffle_down(),  desc="Move window down"),
+    Key([mod, "shift"], "Up",    lazy.layout.shuffle_up(),    desc="Move window up"),
 
-    # Move windows between left/right columns or move up/down in current stack.
-    Key([mod, "shift"], "Left", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "Right", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "Down", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "Up", lazy.layout.shuffle_up(), desc="Move window up"),
+    # Resize windows
+    Key([mod, "control"], "Left",  lazy.layout.grow_left(),  desc="Grow to the left"),
+    Key([mod, "control"], "Right", lazy.layout.grow_right(), desc="Grow to the right"),
+    Key([mod, "control"], "Down",  lazy.layout.grow_down(),  desc="Grow down"),
+    Key([mod, "control"], "Up",    lazy.layout.grow_up(),    desc="Grow up"),
+    Key([mod], "n", lazy.layout.normalize(), desc="Reset window sizes"),
 
-    # Grow windows. If current window is on the edge of screen and direction
-    Key([mod, "control"], "Left", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "Right", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "Down", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "Up", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    Key(
-        [mod],
-        "f",
-        lazy.window.toggle_fullscreen(),
-        desc="Toggle fullscreen on the focused window",
-    ),
-
-    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
-
+    # Layout/window state
+    Key([mod], "Tab", lazy.next_layout(),               desc="Cycle layouts"),
+    Key([mod], "w",   lazy.window.kill(),               desc="Close focused window"),
+    Key([mod], "f",   lazy.window.toggle_fullscreen(),  desc="Toggle fullscreen"),
+    Key([mod], "t",   lazy.window.toggle_floating(),    desc="Toggle floating"),
 
     # --- [LAUNCHERS] ---
-
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "m", lazy.spawn("rofi -show drun"), desc="Launch rofi menu"),
-    Key([mod], "b", lazy.spawn("zen-browser"), desc="Launch default browser"),
-    Key([mod], "e", lazy.spawn("thunar"), desc="Launch default file explorer"),
-
+    Key([mod], "Return", lazy.spawn(terminal),             desc="Launch terminal"),
+    Key([mod], "m",      lazy.spawn("rofi -show drun"),    desc="App launcher (rofi)"),
+    Key([mod], "b",      lazy.spawn("zen-browser"),        desc="Default browser"),
+    Key([mod], "e",      lazy.spawn("thunar"),             desc="File manager"),
 
     # --- [VOLUME] ---
     Key([], "XF86AudioLowerVolume", lazy.spawn("pamixer --decrease 5")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pamixer --increase 5")),
-    Key([], "XF86AudioMute", lazy.spawn("pamixer --toggle-mute")),
-
+    Key([], "XF86AudioMute",        lazy.spawn("pamixer --toggle-mute")),
 
     # --- [BRIGHTNESS] ---
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
+    Key([], "XF86MonBrightnessUp",   lazy.spawn("brightnessctl set +10%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
 
-
     # --- [CONTROL] ---
-    
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile entirely"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "l", lazy.spawn("dm-tool lock"), desc="Lock the session"),
+    Key([mod, "control"], "r", lazy.restart(),          desc="Restart Qtile"),
+    Key([mod, "control"], "q", lazy.shutdown(),         desc="Shutdown Qtile"),
+    Key([mod], "r",             lazy.spawncmd(),        desc="Command prompt"),
+    Key([mod], "l",             lazy.spawn("dm-tool lock"), desc="Lock session"),
 ]
 
-# Add key bindings to switch VTs in Wayland.
-# We can't check qtile.core.name in default config as it is loaded before qtile is started
-# We therefore defer the check until the key binding is run by using .when(func=...)
-for vt in range(1, 8):
-    keys.append(
-        Key(
-            ["control", "mod1"],
-            f"f{vt}",
-            lazy.core.change_vt(vt).when(func=lambda: qtile.core.name == "wayland"),
-            desc=f"Switch to VT{vt}",
-        )
-    )
-
-
+# ----------------------------------------------------------------------------- 
+# Groups (workspaces)
+# -----------------------------------------------------------------------------
 groups = [Group(i) for i in ["", "󰖟", ""]]
 
 for i, group in enumerate(groups):
     actual_key = str(i + 1)
     keys.extend(
         [
-            # mod + group number = switch to group
-            Key(
-                [mod],
-                actual_key,
-                lazy.group[group.name].toscreen(),
-                desc=f"Switch to group {group.name}",
-            ),
-            # mod + shift + group number = switch to & move focused window to group
-            Key(
-                [mod, "shift"],
-                actual_key,
+            # mod + number: go to group
+            Key([mod], actual_key, lazy.group[group.name].toscreen(),
+                desc=f"Switch to group {group.name}"),
+            # mod + shift + number: move window to group and follow it
+            Key([mod, "shift"], actual_key,
                 lazy.window.togroup(group.name, switch_group=True),
-                desc=f"Switch to & move focused window to group {group.name}",
-            ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod + shift + group number = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
+                desc=f"Move focused window to group {group.name} and follow"),
         ]
     )
 
+# ----------------------------------------------------------------------------- 
+# Layouts
+# -----------------------------------------------------------------------------
 layout_conf = {
     'border_focus': '#d1b3fc',
     'border_width': 4,
-    'margin': 8
+    'margin': 8,
 }
 
 layouts = [
@@ -141,6 +121,9 @@ layouts = [
     # layout.Zoomy(),
 ]
 
+# ----------------------------------------------------------------------------- 
+# Widgets / Bars / Screens
+# -----------------------------------------------------------------------------
 widget_defaults = dict(
     font="UbuntuMono Nerd Font Mono",
     fontsize=16,
@@ -153,57 +136,51 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                # widget.CurrentLayout(),
                 widget.WindowName(
                     padding=12,
                     foreground="#d1b3fc",
-                    #background=["#000000", "#000000"],
                     font='UbuntuMono Nerd Font',
                     fontsize=15,
                     markup=True,
-                    fmt="<b>{}</b>"
+                    fmt="<b>{}</b>",
                 ),
                 widget.Spacer(),
-                # widget.CurrentLayout(),
                 widget.GroupBox(
-                    #foreground=["#ffffff", "#ffffff"],
-                    #background=["#000000", "#000000"],
                     font='UbuntuMono Nerd Font Mono',
                     fontsize=36,
                     padding_x=10,
                     highlight_method='text',
                     this_current_screen_border="#d1b3fc",
-                    active='#ffffff',                        # grupos con ventanas (no seleccionados)
-                    inactive='#7a7a7a',                      # grupos vacíos
+                    active='#ffffff',   # groups with windows (not selected)
+                    inactive='#7a7a7a', # empty groups
                     rounded=False,
                 ),
                 widget.Spacer(),
                 widget.Systray(padding=12),
-                #widget.Sep(linewidth=1, padding=8, size_percent=60, foreground='#d1b3fc'),
                 widget.Clock(
                     padding=12,
                     format="%a %H:%M\n%d/%m/%Y",
                     font='UbuntuMono Nerd Font',
                     fontsize=14,
                     markup=True,
-                    fmt="<b>{}</b>"
+                    fmt="<b>{}</b>",
                 ),
             ],
-            35, # bar size
-            margin=[8, 8, 0, 8], # top, right, bottom, left
+            35,  # bar height
+            margin=[8, 8, 0, 8],  # top, right, bottom, left
             border_width=2,
-            border_color='#9180bd'
-            #["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            border_color='#9180bd',
         ),
         background="#7a7a7a",
         wallpaper=wall,
         wallpaper_mode="fill",
-        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
-        # By default we handle these events delayed to already improve performance, however your system might still be struggling
-        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
-        # x11_drag_polling_rate = 60,
     ),
 ]
 
+# ----------------------------------------------------------------------------- 
+# Some default Qtile configs
+# -----------------------------------------------------------------------------
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
