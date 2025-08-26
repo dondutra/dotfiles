@@ -34,50 +34,6 @@ You can delete this folder after finishing because configs are copied into your 
 
 Everything below lives under the top-level **`dotfiles/`** folder:
 
-```
-dotfiles/
-├─ etc/
-│  └─ lightdm/
-│     └─ slick-greeter.conf
-├─ home/
-│  ├─ .bashrc
-│  ├─ .gtkrc-2.0
-│  ├─ .xprofile
-│  └─ .config/
-│     ├─ alacritty/
-│     │  └─ alacritty.toml
-│     ├─ gtk-3.0/
-│     │  └─ settings.ini
-│     ├─ gtk-4.0/
-│     │  └─ settings.ini
-│     ├─ picom/
-│     │  └─ picom.conf
-│     ├─ qtile/
-│     │  ├─ autostart.sh
-│     │  └─ config.py
-│     ├─ rofi/
-│     │  ├─ config.rasi
-│     │  └─ themes/
-│     │     ├─ onedark.rasi
-│     │     └─ slate.rasi
-│     └─ wallpapers/
-│        ├─ 31.jpg
-│        ├─ 69.jpeg
-│        ├─ 71.png
-│        ├─ 85.jpg
-│        ├─ monokuma-eye.png
-│        ├─ monokuma-stare.jpg
-│        ├─ monokuma_military.jpg
-│        ├─ monokumas.jpg
-│        ├─ osagechan.jpeg
-│        ├─ osagechan2.png
-│        └─ shinobu.png
-├─ packages/
-│  ├─ aur.txt
-│  └─ native.txt
-└─ README.md
-```
-
 ---
 
 ## Install the packages
@@ -88,15 +44,14 @@ dotfiles/
 sudo pacman -Syu
 ```
 
-### 1) Native repo packages (from `packages/native.txt`)
+### 1) Install core/native packages (single command)
 
-The list is **one package per line** (simplified format). This installs them **sequentially, one by one**, skipping already-installed ones.
+> If a package is already present, `--needed` will skip it.  
+> This list mirrors `dotfiles/packages/native.txt`.
 
 ```bash
-while IFS= read -r pkg; do
-  [[ -z "$pkg" ]] && continue
-  sudo pacman -S --needed "$pkg"
-done < ./packages/native.txt
+sudo pacman -S xorg-xinit
+sudo pacman -S --needed base-devel git openssh unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-gtk-greeter qtile rofi feh alacritty xterm thunar code firefox vlc imv papirus-icon-theme pulseaudio pavucontrol pamixer volumeicon network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
 ```
 
 > Install the proper GPU driver for your hardware (e.g., `xf86-video-amdgpu`, `nvidia`) if needed.
@@ -116,19 +71,10 @@ rm -rf yay-bin
 
 ### 3) AUR packages (from `packages/aur.txt`)
 
-Also **one package per line**. Installed **sequentially** with `yay`:
+> This list mirrors `dotfiles/packages/native.txt`.
 
 ```bash
-while IFS= read -r pkg; do
-  [[ -z "$pkg" ]] && continue
-  yay -S --needed "$pkg"
-done < ./packages/aur.txt
-```
-
-This typically includes the GTK theme **Material-Black-Plum**. If it’s not in your list, install it explicitly:
-
-```bash
-yay -S material-black-plum-theme
+yay -S ccat zen-browser-bin sublime-text
 ```
 
 ---
@@ -150,15 +96,6 @@ cp home/.bashrc ~/
 # Ensure autostart script is executable (Qtile may call it)
 chmod +x ~/.config/qtile/autostart.sh 2>/dev/null || true
 ```
-
-If you installed **LightDM** and want to use the slick-greeter configuration shipped here:
-
-```bash
-sudo mkdir -p /etc/lightdm
-sudo cp etc/lightdm/slick-greeter.conf /etc/lightdm/
-```
-
-> If you prefer **lightdm-gtk-greeter**, set it in `/etc/lightdm/lightdm.conf`.
 
 ---
 
@@ -196,6 +133,12 @@ sudo cp -r etc/lightdm/ /etc/
 2) Start X:
    ```bash
    startx
+   ```
+
+3) Since you started it manually, you will need to run .xprofile manually as well:
+  ```bash
+   cd ~/dotfiles
+   ./xprofile
    ```
 
 > If `startx` says **command not found**, install `xorg-xinit`:
