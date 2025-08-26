@@ -4,21 +4,16 @@ These are my personal **dotfiles** to make a fresh Arch install look clean and c
 
 The repository has two purposes:
 1) **Personalization (visual setup)** — ✅ fully covered here.  
-2) **System functionality** (audio, multi-monitor helpers, mounts, etc.) — ⏳ *placeholder for later.*
+2) **System functionality** (audio, multi‑monitor helpers, mounts, etc.) — ⏳ *placeholder for later.*
 
 ---
 
-## Before you start (clear preconditions)
+## Preconditions (be explicit)
 
-- You have a working **Arch Linux** installation.  
-- You can use `sudo`.  
+- You have a working **Arch Linux** installation using **X11**.  
+- Your user can run commands with **sudo**.  
 - You have **internet** access.  
-- You have **git** (install it if needed):
-  ```bash
-  sudo pacman -S git
-  ```
-
-> We target **X11** (not Wayland). If you later choose Wayland, you’ll need different steps.
+- You either have **git** already, or you’ll install it below.
 
 ---
 
@@ -43,50 +38,49 @@ Everything lives under the top-level `dotfiles/` folder and mirrors where files 
 
 ---
 
-## Install the required packages (one by one)
+## Install required packages
 
-Install each of the following. If one is already installed, just skip it.
-
-### X11 stack (needed for Qtile and/or LightDM)
+### 0) Fully update your system first
 
 ```bash
-sudo pacman -S xorg-server
+sudo pacman -Syu
 ```
 
-If you **won’t** use a display manager and prefer `startx`, also install:
+### 1) Install core/native packages (single command)
+
+> If a package is already present, `--needed` will skip it.  
+> This list mirrors `dotfiles/packages/native.txt`.
 
 ```bash
-sudo pacman -S xorg-xinit
+sudo pacman -S --needed base-devel git openssh unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-gtk-greeter qtile rofi feh alacritty xterm thunar code firefox vlc imv papirus-icon-theme pulseaudio pavucontrol pamixer volumeicon network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
 ```
 
-> Make sure you have a working video driver for your GPU (e.g., `xf86-video-amdgpu`, `nvidia`, or your laptop’s vendor driver). Install the appropriate one for your hardware if you don’t have it yet.
+> Make sure you also have the correct GPU driver for your hardware (e.g., `xf86-video-amdgpu`, `nvidia`). Install it if needed.
 
-### Core apps
+### 2) Install **yay** (AUR helper)
+
+> Requires `base-devel` and `git` (installed above). We’ll build the binary package from the AUR:
 
 ```bash
-sudo pacman -S qtile
-sudo pacman -S alacritty
-sudo pacman -S rofi
-sudo pacman -S picom
+cd ~
+git clone https://aur.archlinux.org/yay-bin.git
+cd yay-bin
+makepkg -si
+cd ..
+rm -rf yay-bin
 ```
 
-### Fonts (recommended)
+### 3) Install GTK theme **Material‑Black‑Plum** (AUR)
 
 ```bash
-sudo pacman -S noto-fonts
-sudo pacman -S noto-fonts-emoji
-sudo pacman -S ttf-jetbrains-mono     # terminal font I use – change later if you want
-sudo pacman -S ttf-font-awesome       # optional: icons in menus/rofi
+yay -S material-black-plum-theme
 ```
 
-### (Optional) Graphical login
+We’ll point GTK to this theme in the settings files below.
 
-If you want a login screen instead of `startx`:
+### 4) (Optional) Graphical login
 
-```bash
-sudo pacman -S lightdm
-sudo pacman -S lightdm-slick-greeter
-```
+If you want a login screen instead of `startx`, we’ll use **LightDM** with **lightdm‑gtk‑greeter**.
 
 ---
 
@@ -100,20 +94,16 @@ cp -r ~/.xprofile ~/.gtkrc-2.0 ~/.bashrc ~/dotfiles_backup/ 2>/dev/null || true
 
 ---
 
-## Copy these dotfiles into place (simple manual copy)
+## Copy these dotfiles into place (simplified)
 
 From the repository root (`dotfiles/`):
 
 ```bash
+# Create config dir if missing
 mkdir -p ~/.config
-cp -r home/.config/alacritty ~/.config/
-cp -r home/.config/gtk-3.0   ~/.config/
-cp -r home/.config/gtk-4.0   ~/.config/
-cp -r home/.config/picom     ~/.config/
-cp -r home/.config/qtile     ~/.config/
-cp -r home/.config/rofi      ~/.config/
-cp -r home/.config/wallpapers ~/.config/
 
+# Copy configs (simple, explicit)
+cp -r home/.config/* ~/.config/
 cp home/.xprofile ~/
 cp home/.gtkrc-2.0 ~/
 cp home/.bashrc ~/
@@ -122,10 +112,10 @@ cp home/.bashrc ~/
 Make the autostart script executable (Qtile may call it):
 
 ```bash
-chmod +x ~/.config/qtile/autostart.sh
+chmod +x ~/.config/qtile/autostart.sh 2>/dev/null || true
 ```
 
-> You can now **remove** the cloned `dotfiles/` folder later if you want. Your system uses the copies in your home.
+> You can **remove** the cloned `dotfiles/` folder later if you want. Your system uses the copies in your home.
 
 ---
 
@@ -136,10 +126,15 @@ Open and edit files as needed. Keep things simple and explicit.
 - **Qtile**
   - `nano ~/.config/qtile/config.py`  
     - Set your preferred terminal if it’s not Alacritty.  
-    - **Wallpaper:** the config sets the wallpaper **inside Qtile** (no `feh` is required). Point it to one of the images in `~/.config/wallpapers/`.  
+    - **Wallpaper:** the wallpaper is set **inside Qtile’s config** (feh is **not** used for wallpaper). Point it to an image under `~/.config/wallpapers/`.  
     - Review keybindings and layouts.
   - `nano ~/.config/qtile/autostart.sh`  
-    - Add tray apps or services you want to start with the session.
+    - Add tray apps/services you want, e.g.:
+      ```bash
+      volumeicon &
+      nm-applet &
+      cbatticon &
+      ```
 
 - **Rofi**
   - `nano ~/.config/rofi/config.rasi`  
@@ -152,30 +147,34 @@ Open and edit files as needed. Keep things simple and explicit.
 
 - **Alacritty**
   - `nano ~/.config/alacritty/alacritty.toml`  
-    - Change the font family/size if you installed a different font.
+    - Change the font family/size if you prefer a different one.
 
 - **GTK (apps look & feel)**
   - `nano ~/.config/gtk-3.0/settings.ini`
   - `nano ~/.config/gtk-4.0/settings.ini`  
-    - Ensure `gtk-theme-name`, `gtk-icon-theme-name`, and `gtk-font-name` reference themes you have installed. If unsure, use the defaults (e.g., `Adwaita` or `Adwaita-dark`).
-
-- **LightDM greeter (optional)**
-  - Copy the provided greeter configuration:
-    ```bash
-    sudo mkdir -p /etc/lightdm
-    sudo cp etc/lightdm/slick-greeter.conf /etc/lightdm/
+    Set at least these to installed themes/fonts:
+    ```ini
+    gtk-theme-name=Material-Black-Plum
+    gtk-icon-theme-name=Papirus
+    gtk-font-name=Noto Sans 10
     ```
-  - Then edit LightDM’s main config to select the greeter and (optionally) the default session:
+    If you choose another GTK theme, install it first.
+
+- **LightDM (using lightdm‑gtk‑greeter)**
+  - Edit `/etc/lightdm/lightdm.conf`:
     ```bash
     sudo nano /etc/lightdm/lightdm.conf
     ```
-    Make sure these lines exist (uncomment or add them):
+    Ensure:
     ```
     [Seat:*]
-    greeter-session=slick-greeter
+    greeter-session=lightdm-gtk-greeter
     user-session=qtile
     ```
-    If you prefer another greeter or session, set them accordingly.
+  - (Optional) Edit the greeter’s appearance:
+    ```bash
+    sudo nano /etc/lightdm/lightdm-gtk-greeter.conf
+    ```
 
 ---
 
@@ -193,7 +192,7 @@ Choose **one** of the two approaches below.
 
 2) Reboot and on the login screen select the **Qtile** session.
 
-> If LightDM fails to start, see **Troubleshooting** below—usually it’s a missing greeter setting in `/etc/lightdm/lightdm.conf` or missing Xorg packages.
+> If LightDM fails to start, see **Troubleshooting** below—usually it’s a greeter setting or missing Xorg pieces.
 
 ### B) Without a display manager (use **startx**)
 
@@ -221,26 +220,29 @@ Choose **one** of the two approaches below.
 ## Troubleshooting
 
 - **“Failed to start Light Display Manager”**
-  - Confirm X11 is installed: `sudo pacman -S xorg-server`
-  - Confirm greeter is installed: `sudo pacman -S lightdm-slick-greeter`
-  - Confirm it’s selected in `/etc/lightdm/lightdm.conf` (`greeter-session=slick-greeter`)
+  - Confirm X11 is installed: `sudo pacman -S xorg` (meta) or `sudo pacman -S xorg-server`  
+  - Confirm `lightdm-gtk-greeter` is installed and selected in `/etc/lightdm/lightdm.conf`  
   - See logs: `journalctl -u lightdm --no-pager`
 
 - **No Qtile option on the login screen**
-  - Ensure `qtile` is installed and that `/usr/share/xsessions/qtile.desktop` exists (provided by the package). Reinstall `qtile` if needed.
-
-- **`startx` not found**
-  - Install `xorg-xinit` and try again.
+  - Ensure `qtile` is installed and `/usr/share/xsessions/qtile.desktop` exists (provided by the package). Reinstall `qtile` if needed.
 
 - **Black screen / glitches**
   - Install the proper GPU driver for your hardware (e.g., `xf86-video-amdgpu`, `nvidia`).
 
 - **Wallpaper doesn’t change**
-  - Open `~/.config/qtile/config.py` and verify the path points to a real image under `~/.config/wallpapers/`. This setup does **not** use `feh`.
+  - Open `~/.config/qtile/config.py` and verify the wallpaper path is valid under `~/.config/wallpapers/`.
+  - Remember: this setup does **not** use `feh` for wallpaper.
+
+- **No tray icons**
+  - Add `volumeicon`, `nm-applet`, and/or `cbatticon` to `~/.config/qtile/autostart.sh` (see above).
+
+- **`startx` not found**
+  - Install `xorg-xinit` and try again.
 
 - **Fonts or icons look wrong**
-  - Ensure the fonts listed above are installed.  
-  - Check `gtk-3.0/gtk-4.0` `settings.ini` themes and icon themes actually exist on your system.
+  - Ensure the listed fonts are installed.  
+  - Check GTK theme and icon theme names in `gtk-3.0` and `gtk-4.0` settings.
 
 ---
 
