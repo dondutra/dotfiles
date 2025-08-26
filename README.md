@@ -1,224 +1,244 @@
-# dotfiles — Manual installation guide (Arch Linux)
+# dotfiles — Arch Linux visual setup (Qtile, Alacritty, Rofi, Picom, GTK, LightDM)
 
-> **Scope:** This is the _only_ reference for installing my setup manually on a **fresh Arch Linux** with working internet and **git already installed**.  
-> After finishing these steps, you can safely delete the repository because all configuration and assets will have been copied to their final locations.  
-> An automated `install.sh` may come later; until then, use this guide.
+These are my personal **dotfiles** to make a fresh Arch install look clean and consistent.  
+The repository serves two purposes:
 
----
+1) **Personalization (visual setup)** — ✅ fully covered below.  
+2) **System functionality (quality‑of‑life bits: audio, monitors, mounts, etc.)** — ⏳ *placeholder for later.*
 
-## Package lists used by this guide
-
-This guide installs exactly the packages listed in:
-- `packages-native.txt` (official repos)
-- `packages-aur.txt` (AUR)
-
-You can open those two files to see or edit the lists before running the commands below.
+> This guide assumes you already have Arch installed and can use `sudo` and `pacman`.
 
 ---
 
-## Recommended repository layout
+## What you’ll get
 
-Adopt this structure so that files mirror their final paths on disk. It makes manual installs simple and repeatable:
+- **Qtile** window manager with my keybinds and autostart
+- **Alacritty** terminal configuration
+- **Rofi** app launcher with two bundled themes (`onedark` and `slate`)
+- **Picom** compositor settings (transparency, shadows, animations toggles, etc.)
+- **GTK 3 + 4** settings for apps (theme, icons, cursor)
+- Optional **LightDM + slick-greeter** setup with my greeter config
+- A small **wallpapers** collection
+
+---
+
+## Repository layout (actual paths & filenames)
+
+Everything below lives under the top-level folder **`dotfiles/`**:
 
 ```
 dotfiles/
-├─ home/
-│  └─ .config/
-│     ├─ alacritty/alacritty.toml
-│     ├─ gtk-3.0/settings.ini
-│     ├─ picom/picom.conf
-│     ├─ qtile/{autostart.sh, config.py}
-│     ├─ rofi/{config.rasi, themes/*.rasi}
-│     └─ wallpapers/
-│        └─ <your_wallpapers_here>
 ├─ etc/
-│  └─ lightdm/slick-greeter.conf
-├─ packages-native.txt
-├─ packages-aur.txt
+│  └─ lightdm/
+│     └─ slick-greeter.conf
+├─ home/
+│  ├─ .bashrc
+│  ├─ .config/
+│  │  ├─ alacritty/
+│  │  │  └─ alacritty.toml
+│  │  ├─ gtk-3.0/
+│  │  │  └─ settings.ini
+│  │  ├─ gtk-4.0/
+│  │  │  └─ settings.ini
+│  │  ├─ picom/
+│  │  │  └─ picom.conf
+│  │  ├─ qtile/
+│  │  │  ├─ autostart.sh
+│  │  │  └─ config.py
+│  │  └─ rofi/
+│  │     ├─ config.rasi
+│  │     └─ themes/
+│  │        ├─ onedark.rasi
+│  │        └─ slate.rasi
+│  │  └─ wallpapers/
+│  │     ├─ 31.jpg
+│  │     ├─ 69.jpeg
+│  │     ├─ 71.png
+│  │     ├─ 85.jpg
+│  │     ├─ monokuma-eye.png
+│  │     ├─ monokuma-stare.jpg
+│  │     ├─ monokuma_military.jpg
+│  │     ├─ monokumas.jpg
+│  │     ├─ osagechan.jpeg
+│  │     ├─ osagechan2.png
+│  │     └─ shinobu.png
+│  ├─ .gtkrc-2.0
+│  └─ .xprofile
+├─ packages/
+│  ├─ aur.txt
+│  └─ native.txt
 └─ README.md
 ```
 
-### One-time migration from the legacy layout (if your repo still has `config/` and `images/`)
-
-Run once from the repo root (keeps git history with `git mv`). Skip if your repo already matches the layout above.
-
-```bash
-# From repository root
-mkdir -p home/.config etc/lightdm
-
-git mv config/alacritty         home/.config/alacritty
-git mv config/gtk               home/.config/gtk-3.0
-git mv config/picom             home/.config/picom
-git mv config/qtile             home/.config/qtile
-git mv config/rofi              home/.config/rofi
-git mv images                   home/.config/wallpapers
-git mv config/lightdm/slick-greeter.conf etc/lightdm/slick-greeter.conf
-
-# Optional: clean up empty dirs
-rmdir config 2>/dev/null || true
-```
-
-> Ensure that any hardcoded image paths in your configs (e.g., Qtile wallpaper) point to `~/.config/wallpapers/...` or adjust them accordingly.
+> The `packages/` files are *references only*. We **do not** install from them automatically in this guide.
 
 ---
 
-## TL;DR — manual install (fresh Arch + internet + git)
+## 1) Install the required apps (manually, one by one)
+
+Install each package as you need it. If something below is already installed, skip it.
 
 ```bash
-# 0) Get the repository
-git clone https://github.com/dondutra/dotfiles.git
-cd dotfiles
+sudo pacman -S qtile
+sudo pacman -S alacritty
+sudo pacman -S rofi
+sudo pacman -S picom
+```
 
-# 1) Update system and install build tools (needed for AUR helpers)
-sudo pacman -Syu --needed base-devel
+Optional but recommended for wall­papers and fonts:
 
-# 2) Install packages from official repos (defined in packages-native.txt)
-sudo pacman -S --needed $(grep -vE '^[[:space:]]*#|^[[:space:]]*$' packages-native.txt | tr '\n' ' ')
+```bash
+sudo pacman -S feh          # used by autostart.sh to set a background
+sudo pacman -S noto-fonts   # general UI font coverage
+sudo pacman -S noto-fonts-emoji
+sudo pacman -S ttf-jetbrains-mono  # my terminal font; change later if you want
+# If you want icon glyphs in menus/rofi:
+sudo pacman -S ttf-font-awesome
+```
 
-# 3) Install an AUR helper (paru used below; replace with yay if you prefer)
-git clone https://aur.archlinux.org/paru.git
-cd paru && makepkg -si && cd ..
+### (Optional) Display manager
 
-# 4) Install AUR packages (defined in packages-aur.txt)
-paru -S --needed $(grep -vE '^[[:space:]]*#|^[[:space:]]*$' packages-aur.txt | tr '\n' ' ')
+If you prefer to log in graphically:
 
-# 5) Deploy user configuration to your HOME
-mkdir -p ~/.config
-cp -rT home/.config ~/.config
-chmod +x ~/.config/qtile/autostart.sh  # make autostart executable
+```bash
+sudo pacman -S lightdm
+sudo pacman -S lightdm-slick-greeter
+```
 
-# 6) (Optional) If you want the greeter background system-wide, copy a wallpaper
-#    and set it in slick-greeter.conf before installing it
-#    Example:
-#    sudo mkdir -p /usr/share/backgrounds/dondutra
-#    sudo cp ~/.config/wallpapers/<your_image> /usr/share/backgrounds/dondutra/greeter.png
-#    sudo sed -i "s|^background=.*|background=/usr/share/backgrounds/dondutra/greeter.png|" etc/lightdm/slick-greeter.conf
+Enable LightDM so it starts at boot (you can also start it once manually after copying configs in step 3):
 
-# 7) Install system-wide configuration
-sudo install -Dm644 etc/lightdm/slick-greeter.conf /etc/lightdm/slick-greeter.conf
-
-# 8) Enable the display manager and set default target to graphical
+```bash
 sudo systemctl enable lightdm.service
-sudo systemctl set-default graphical.target
-
-# 9) Refresh fonts (important for Nerd/emoji fonts)
-fc-cache -rv
-
-# 10) Reboot and log into Qtile
-sudo reboot
 ```
 
 ---
 
-## Detailed manual installation (with context and checks)
+## 2) Back up your current config (recommended)
 
-### 0) Preconditions
-
-- Fresh Arch Linux.
-- Working internet.
-- `git` already installed (`pacman -S git` if not).
-
-### 1) System update and build tools
-
-AUR helpers require a compiler toolchain:
+Create a quick backup before replacing files:
 
 ```bash
-sudo pacman -Syu --needed base-devel
+mkdir -p ~/dotfiles_backup
+cp -r ~/.config ~/dotfiles_backup/ 2>/dev/null || true
+cp -r ~/.xprofile ~/.gtkrc-2.0 ~/.bashrc ~/dotfiles_backup/ 2>/dev/null || true
 ```
 
-### 2) Official repo packages
+---
 
-Everything under `packages-native.txt` will be installed. Blank lines and `#` comments are ignored:
+## 3) Copy my configs into place
 
-```bash
-sudo pacman -S --needed $(grep -vE '^[[:space:]]*#|^[[:space:]]*$' packages-native.txt | tr '\n' ' ')
-```
+From the **root of this repository** (`dotfiles/`), run the following to copy things over.
 
-> Tip: If you plan to use NetworkManager applet (`network-manager-applet`) and you don’t already use NetworkManager, also do:
->
-> ```bash
-> sudo pacman -S --needed networkmanager
-> sudo systemctl enable --now NetworkManager
-> ```
->
-> Otherwise, skip this (many fresh installs already have networking configured another way).
-
-### 3) AUR packages
-
-Install an AUR helper and then the packages from `packages-aur.txt`:
-
-```bash
-git clone https://aur.archlinux.org/paru.git
-cd paru && makepkg -si && cd ..
-paru -S --needed $(grep -vE '^[[:space:]]*#|^[[:space:]]*$' packages-aur.txt | tr '\n' ' ')
-```
-
-### 4) Copy user configuration to `$HOME`
-
-Mirror the repo’s `home/.config` to your `~/.config` and ensure autostart is executable:
+> If a directory doesn’t exist yet, the command creates it first.
 
 ```bash
 mkdir -p ~/.config
-cp -rT home/.config ~/.config
+cp -r home/.config/alacritty ~/.config/
+cp -r home/.config/gtk-3.0 ~/.config/
+cp -r home/.config/gtk-4.0 ~/.config/
+cp -r home/.config/picom ~/.config/
+cp -r home/.config/qtile ~/.config/
+cp -r home/.config/rofi ~/.config/
+cp -r home/.config/wallpapers ~/.config/
+
+cp home/.xprofile ~/
+cp home/.gtkrc-2.0 ~/
+cp home/.bashrc ~/
+```
+
+Make sure the autostart script is executable:
+
+```bash
 chmod +x ~/.config/qtile/autostart.sh
 ```
 
-### 5) Wallpapers and assets
+### LightDM greeter config (optional)
 
-Keep wallpapers alongside configs so the setup works after the repo is deleted:
-
-```bash
-mkdir -p ~/.config/wallpapers
-cp -r home/.config/wallpapers/* ~/.config/wallpapers/ 2>/dev/null || true
-```
-
-Make sure your Qtile config points at an existing file under `~/.config/wallpapers/`.
-
-### 6) System-wide LightDM config
-
-Install the greeter config. If it references a specific background, either keep that path in your home (`~/.config/wallpapers/...`) or copy a system-wide image as shown in the TL;DR and update the `background=` line accordingly.
+Only if you installed LightDM + slick-greeter above:
 
 ```bash
-sudo install -Dm644 etc/lightdm/slick-greeter.conf /etc/lightdm/slick-greeter.conf
+sudo mkdir -p /etc/lightdm
+sudo cp etc/lightdm/slick-greeter.conf /etc/lightdm/
 ```
 
-### 7) Enable services and finalize
-
-```bash
-sudo systemctl enable lightdm.service
-sudo systemctl set-default graphical.target
-fc-cache -rv
-```
-
-Reboot and select the **Qtile** session.
-
-```bash
-sudo reboot
-```
+> You can start LightDM once to test, or simply reboot:
+>
+> ```bash
+> sudo systemctl start lightdm
+> ```
 
 ---
 
-## Verifications
+## 4) Edit configs *manually* (with `nano`) where needed
 
-- **Session type:** this setup targets X11. `echo "$XDG_SESSION_TYPE"` should print `x11` once logged in.  
-- **Fonts:** verify Nerd and emoji fonts are visible: `fc-list | grep -i ubuntu` or `fc-list | grep -i noto`.  
-- **Tray:** ensure a system tray is present in your Qtile bar for `nm-applet`, `cbatticon`, `volumeicon`, etc.  
-- **Autostart:** confirm `~/.config/qtile/autostart.sh` includes your applets (`setxkbmap`, `nm-applet`, `cbatticon`, etc.) and is executable.
+This setup is intentionally manual. Open files, read comments, and tweak as you like.
+
+- **Qtile**
+  - `nano ~/.config/qtile/config.py`  
+    - Change `terminal` if you don’t use Alacritty.
+    - Review keybindings and layouts.
+  - `nano ~/.config/qtile/autostart.sh`  
+    - It sets your wallpaper with `feh`. Point it to one of the images in `~/.config/wallpapers/` if you want a specific one.
+    - Add any tray apps or services you want to start with Qtile.
+
+- **Rofi**
+  - `nano ~/.config/rofi/config.rasi`  
+    - The config references a theme. To switch, open the file and set the theme line to either:
+      - `@theme "onedark"` or
+      - `@theme "slate"`
+    - The themes live in `~/.config/rofi/themes/`.
+
+- **Picom**
+  - `nano ~/.config/picom/picom.conf`  
+    - Adjust transparency, shadows, and vsync to your preference.
+
+- **Alacritty**
+  - `nano ~/.config/alacritty/alacritty.toml`  
+    - Change the font family/size if you installed a different font.
+
+- **GTK 3 & 4**
+  - `nano ~/.config/gtk-3.0/settings.ini`
+  - `nano ~/.config/gtk-4.0/settings.ini`  
+    - Make sure the `gtk-theme-name`, `gtk-icon-theme-name`, and `gtk-font-name` values match themes you actually have installed. If you choose a different GTK theme, install it first.
+
+- **LightDM greeter (optional)**
+  - `sudo nano /etc/lightdm/slick-greeter.conf`  
+    - Set the `background=` path to one of your wallpapers if you’d like a custom greeter background.
 
 ---
 
-## Cleanup
+## 5) Start Qtile
 
-You can now delete the repository if you like; your system is fully configured:
-
-```bash
-cd ~
-rm -rf ~/dotfiles
-```
+- If you installed **LightDM**, choose the **Qtile** session on the login screen.  
+- If you start X manually, create or update `~/.xinitrc` to exec Qtile:
+  ```bash
+  echo 'exec qtile start' >> ~/.xinitrc
+  startx
+  ```
 
 ---
 
-## License & credits
+## Troubleshooting tips
 
-Free to use as long as you keep a mention of the creator: **dondutra**.  
-YouTube: https://youtube.com/@arkty · GitHub: https://github.com/dondutra
+- If the wallpaper doesn’t set on login, verify `feh` is installed and the path in `autostart.sh` points to a real image.
+- If apps look odd, check the GTK theme names in both `gtk-3.0` and `gtk-4.0` configs.
+- If fonts look wrong in Alacritty/Rofi, make sure the referenced fonts are installed on your system.
+- For LightDM background errors, confirm file permissions and the `background=` path in `slick-greeter.conf`.
+
+---
+
+## Part 2 — System functionality (placeholder)
+
+This section will later cover:
+- Audio (PipeWire / ALSA basics)
+- Multi-monitor layout helpers
+- Auto-mounting removable drives
+- Useful services and CLI tools for a daily‑driver setup
+
+> Not implemented yet — coming later.
+
+---
+
+## License
+
+MIT — do whatever you want, but no warranty.
