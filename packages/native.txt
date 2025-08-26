@@ -1,55 +1,32 @@
-# --- Core / base tooling ---
-base-devel        # build tools for makepkg and compiling
-git               # version control
-openssh           # SSH client/server
-unzip             # unzip utility
-htop              # process monitor
-fastfetch         # system info (fast neofetch)
-exa               # modern ls replacement
-brightnessctl     # control display backlight
-
-# --- Display server / login ---
-xorg              # X.Org display server (meta)
-xorg-xinit        # startx/xinit
-lightdm           # display manager
-lightdm-gtk-greeter  # GTK greeter for LightDM
-
-# --- Window manager / desktop helpers ---
-qtile             # tiling window manager
-rofi              # launcher/application switcher
-feh               # lightweight image viewer; often used to set wallpaper
-
-# --- Terminals ---
-alacritty         # GPU-accelerated terminal emulator
-xterm             # fallback terminal emulator
-
-# --- File management ---
-thunar            # GUI file manager
-
-# --- Editors / IDEs ---
-code              # Visual Studio Code (OSS build, repo variant)
-
-# --- Web ---
-firefox           # web browser
-
-# --- Multimedia ---
-vlc               # media player
-imv               # image viewer
-papirus-icon-theme  # icon theme
-
-# --- Audio ---
-pulseaudio        # audio server
-pavucontrol       # PulseAudio mixer GUI
-pamixer           # CLI volume control
-volumeicon        # tray volume icon
-
-# --- Networking ---
-network-manager-applet  # NetworkManager tray applet
-
-# --- Power / tray utilities ---
-cbatticon         # battery tray icon
-
-# --- Fonts ---
+base-devel
+git
+openssh
+unzip
+htop
+fastfetch
+exa
+brightnessctl
+xorg
+xorg-xinit
+lightdm
+lightdm-gtk-greeter
+qtile
+rofi
+feh
+alacritty
+xterm
+thunar
+code
+firefox
+vlc
+imv
+papirus-icon-theme
+pulseaudio
+pavucontrol
+pamixer
+volumeicon
+network-manager-applet
+cbatticon
 ttf-dejavu
 ttf-liberation
 noto-fonts

@@ -1,8 +1,3 @@
-# --- Terminal / CLI enhancements ---
-ccat               # colorized cat
-
-# --- Browsers (AUR) ---
-zen-browser-bin    # Firefox-based Zen browser (binary)
-
-# --- Editors / IDEs (AUR) ---
-sublime-text       # Sublime Text editor (proprietary)
+ccat
+zen-browser-bin
+sublime-text
