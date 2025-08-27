@@ -44,7 +44,7 @@ sudo pacman -Syu
 > This list mirrors `dotfiles/packages/native.txt`.
 
 ```bash
-sudo pacman -S --needed base-devel git openssh unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-slick-greeter lightdm-gtk-greeter qtile picom rofi feh alacritty xterm thunar code firefox vlc imv papirus-icon-theme pulseaudio pavucontrol pamixer volumeicon network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
+sudo pacman -S --needed base-devel git rsync openssh unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-slick-greeter lightdm-gtk-greeter qtile picom rofi feh alacritty xterm thunar code firefox vlc imv papirus-icon-theme pulseaudio pavucontrol pamixer volumeicon network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
 ```
 
 > Install the proper GPU driver for your hardware (e.g., `xf86-video-amdgpu`, `nvidia`) if needed.
@@ -67,17 +67,35 @@ rm -rf yay-bin
 > This list mirrors `dotfiles/packages/native.txt`.
 
 ```bash
-yay -S ccat zen-browser-bin sublime-text
+yay -S ccat zen-browser-bin sublime-text gtk-theme-material-black
 ```
+---
+
+## Enable login manager LightDM
+
+1) Enable LightDM:
+   ```bash
+   sudo systemctl enable lightdm.service
+   sudo systemctl set-default graphical.target
+   ```
+
+---
+
+## Reboot & continue to lightdm
+
+> Note: Rebooting here may save you from a lot of problems later.
+```bash
+reboot
+```
+
+Now the login manager (lightdm) should open. Enter your credentials. Default qtile session should start.
 
 ---
 
 ## Place the dotfiles
 
+> Note: default qtile keybinding for opening a terminal {super (windows) + enter}. Alternatively: {ctrl + alt + F2}
 ```bash
-# Install syncing utility
-sudo pacman -S rsync
-
 # Sync the dotfiles
 rsync -avh ~/dotfiles/home/ ~/
 
@@ -87,33 +105,32 @@ chmod +x ~/.config/qtile/autostart.sh 2>/dev/null || true
 
 ---
 
-## Start Qtile
+## Copy my LightDM configs
+```bash
+sudo rsync -avh ~/dotfiles/etc/lightdm/ /etc/lightdm/
+```
 
-Choose **one** of the two approaches below.
+---
 
-### A) With **LightDM** (graphical login)
+## Reboot
+```bash
+reboot
+```
 
-1) Enable LightDM:
-   ```bash
-   sudo systemctl enable lightdm.service
-   sudo systemctl set-default graphical.target
-   ```
+**Everything should be working as expected now. If everything is fine you may leave the guide here. If something is failing, below we cover some troubleshooting.**
 
-2) Select **Qtile** on the login screen.
+---
 
-To ensure the correct greeter/session, copy (inside repo dotfiles):
-  ```bash
-  sudo rsync -avh ~/dotfiles/etc/lightdm/ /etc/lightdm/
-  ```
+## Entering QTile without a display manager (use **startx**)
 
-### B) Without a display manager (use **startx**)
+> Sometimes, lightdm is the only problem and qtile is fine. If you don't need a graphical login but you want everything else you may want to proceed as follows:
 
 1) Create or edit `~/.xinitrc`:
    ```bash
    nano ~/.xinitrc
    ```
    Put this as the last line and save:
-   ```
+   ```bash
    [ -f ~/.xprofile ] && . ~/.xprofile
    exec qtile start
    ```
@@ -136,6 +153,11 @@ To ensure the correct greeter/session, copy (inside repo dotfiles):
 > sudo pacman -S xorg-xinit
 > ```
 
+Now, each time you want the qtile session after a reboot, run:
+```bash
+  startx && ~/.xprofile
+```
+
 ---
 
 ## Troubleshooting
@@ -157,6 +179,8 @@ To ensure the correct greeter/session, copy (inside repo dotfiles):
 - **Audio stack (correct)**  
   - This setup uses **PulseAudio** packages (`pulseaudio`, `pavucontrol`, `pamixer`, `volumeicon`).  
   - If you want **PipeWire**, replace these with PipeWire equivalents yourself (not covered here).
+
+> If nothing of above works, try starting all over again. If still not working, welcome to Archlinux ;)
 
 ---
 
