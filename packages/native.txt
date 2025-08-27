@@ -10,7 +10,9 @@ xorg
 xorg-xinit
 lightdm
 lightdm-gtk-greeter
+lightdm-slick-greeter
 qtile
+picom
 rofi
 feh
 alacritty

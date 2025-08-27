@@ -10,7 +10,7 @@ The repository has two purposes:
 
 ## Preconditions
 
-- A working **Arch Linux** installation using **X11**.  
+- A fresh **Arch Linux** installation. 
 - Your user can run commands with **sudo**.  
 - Internet access and basic shell usage.
 
@@ -18,7 +18,7 @@ The repository has two purposes:
 
 ## Get the repository
 
-Pick a folder (your home is fine), then clone and enter the repo:
+Pick a folder (I'll assume you put it in your home), then clone and enter the repo:
 
 ```bash
 cd ~
@@ -27,12 +27,6 @@ cd dotfiles
 ```
 
 You can delete this folder after finishing because configs are copied into your home.
-
----
-
-## Repository layout (actual tree)
-
-Everything below lives under the top-level **`dotfiles/`** folder:
 
 ---
 
@@ -50,8 +44,7 @@ sudo pacman -Syu
 > This list mirrors `dotfiles/packages/native.txt`.
 
 ```bash
-sudo pacman -S xorg-xinit
-sudo pacman -S --needed base-devel git openssh unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-gtk-greeter qtile rofi feh alacritty xterm thunar code firefox vlc imv papirus-icon-theme pulseaudio pavucontrol pamixer volumeicon network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
+sudo pacman -S --needed base-devel git openssh unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-slick-greeter lightdm-gtk-greeter qtile picom rofi feh alacritty xterm thunar code firefox vlc imv papirus-icon-theme pulseaudio pavucontrol pamixer volumeicon network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
 ```
 
 > Install the proper GPU driver for your hardware (e.g., `xf86-video-amdgpu`, `nvidia`) if needed.
@@ -81,17 +74,12 @@ yay -S ccat zen-browser-bin sublime-text
 
 ## Place the dotfiles
 
-From the repository root (`dotfiles/`):
-
 ```bash
-# Create config dir if missing
-mkdir -p ~/.config
+# Install syncing utility
+sudo pacman -S rsync
 
-# Copy everything in one go
-cp -r home/.config/* ~/.config/
-cp home/.xprofile ~/
-cp home/.gtkrc-2.0 ~/
-cp home/.bashrc ~/
+# Sync the dotfiles
+rsync -avh ~/dotfiles/home/ ~/
 
 # Ensure autostart script is executable (Qtile may call it)
 chmod +x ~/.config/qtile/autostart.sh 2>/dev/null || true
@@ -105,9 +93,8 @@ Choose **one** of the two approaches below.
 
 ### A) With **LightDM** (graphical login)
 
-1) Install and enable LightDM (if you haven’t already):
+1) Enable LightDM:
    ```bash
-   sudo pacman -S --needed lightdm lightdm-gtk-greeter
    sudo systemctl enable lightdm.service
    sudo systemctl set-default graphical.target
    ```
@@ -115,9 +102,9 @@ Choose **one** of the two approaches below.
 2) Select **Qtile** on the login screen.
 
 To ensure the correct greeter/session, copy (inside repo dotfiles):
-```bash
-sudo cp -r etc/lightdm/ /etc/
-```
+  ```bash
+  sudo rsync -avh ~/dotfiles/etc/lightdm/ /etc/lightdm/
+  ```
 
 ### B) Without a display manager (use **startx**)
 
@@ -127,8 +114,10 @@ sudo cp -r etc/lightdm/ /etc/
    ```
    Put this as the last line and save:
    ```
+   [ -f ~/.xprofile ] && . ~/.xprofile
    exec qtile start
    ```
+   This loads your session environment when using startx
 
 2) Start X:
    ```bash
@@ -136,9 +125,10 @@ sudo cp -r etc/lightdm/ /etc/
    ```
 
 3) Since you started it manually, you will need to run .xprofile manually as well:
-  ```bash
-   cd ~/dotfiles
-   ./xprofile
+   ```bash
+   cd ~
+   chmod +x .xprofile
+   ~/.xprofile
    ```
 
 > If `startx` says **command not found**, install `xorg-xinit`:
