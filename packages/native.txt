@@ -1,6 +1,7 @@
 base-devel
 git
 openssh
+rsync
 unzip
 htop
 fastfetch
