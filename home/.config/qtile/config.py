@@ -15,7 +15,7 @@ from libqtile.lazy import lazy
 from libqtile import hook
 
 # Mod key and preferred terminal
-mod = "mod1"          # Use Mod1 (Alt). Use "mod4" for Super/Windows if preferred.
+mod = "mod4"          # Use {mod1 (Alt)} / {mod4} for Super/Windows
 terminal = "alacritty"
 
 # Run autostart script once per session (spawns your helpers)
