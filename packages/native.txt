@@ -40,3 +40,4 @@ ttf-ubuntu-mono-nerd
 ttf-font-awesome
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
+xcb-util-cursor
