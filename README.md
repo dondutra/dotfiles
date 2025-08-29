@@ -4,9 +4,9 @@ This repo shows **how to install & use my Arch setup** — it does **not** teach
 
 The repository has two purposes:
 1) **Personalization (visual setup).**  
-2) **System functionality (audio, multi‑monitor helpers, mounts, etc.)**
+2) **System functionality (audio, multi‑monitor helpers, mounts, etc.).**
 
-> Thereby, it may be seen as a whole personalized working Arch enviroment. Hence, I encourage you to check the packages you'll be installing so you can carefully add/remove exactly the ones you want.
+Thereby, it may be seen as a whole personalized working Arch enviroment. Hence, I encourage you to check the packages you'll be installing so you can carefully add/remove exactly the ones you want.
 
 ---
 
@@ -34,7 +34,7 @@ You can delete this folder after finishing because configs are copied into your 
 
 ## Install the packages
 
-See `packages/README.md` for installation steps covering both native Arch (pacman) and AUR packages.
+See [`packages/README.md`](packages/README.md) for installation steps covering both native Arch (pacman) and AUR packages.
 
 ## Enable system services
 
@@ -81,6 +81,7 @@ chmod +x ~/.config/qtile/autostart.sh 2>/dev/null || true
 sudo rsync -avh ~/dotfiles/etc/ /etc/
 ```
 This copies the entire `etc` directory from the repo into `/etc`. It only adds/overwrites files, it does not delete existing files there.
+
 ---
 
 ## Reboot
@@ -103,13 +104,13 @@ rm -rf ~/dotfiles
 
 ---
 
-> Now installation is fully complete. Below we'll cover some useful tips you may want to know in order to use my personalized enviroment correctly.
+**Now installation is fully complete.** Below we'll cover some useful tips you may want to know in order to use my personalized enviroment correctly.
 
 ---
 
 ## Entering QTile without a display manager (use **startx**)
 
-> Sometimes, lightdm is the only problem and qtile is fine. If you don't need a graphical login but you want everything else you may want to proceed as follows:
+Sometimes, lightdm is the only problem and qtile is fine. If you don't need a graphical login but you want everything else you may want to proceed as follows:
 
 1) Create or edit `~/.xinitrc`:
    ```bash
