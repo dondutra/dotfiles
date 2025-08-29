@@ -24,10 +24,15 @@ firefox
 vlc
 imv
 papirus-icon-theme
-pulseaudio
+pipewire
+wireplumber
+pipewire-pulse
+pipewire-alsa
+pipewire-jack
+gst-plugin-pipewire
 pavucontrol
 pamixer
-volumeicon
+pasystray
 network-manager-applet
 cbatticon
 ttf-dejavu

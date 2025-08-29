@@ -71,12 +71,18 @@ yay -S ccat zen-browser-bin sublime-text gtk-theme-material-black
 ```
 ---
 
-## Enable login manager LightDM
+## Enable system services
 
 1) Enable LightDM:
    ```bash
    sudo systemctl enable lightdm.service
    sudo systemctl set-default graphical.target
+   ```
+
+2) Enable PipeWire:
+   ```bash
+   systemctl --user --now enable wireplumber.service
+   systemctl --user restart pipewire pipewire-pulse
    ```
 
 ---

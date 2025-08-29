@@ -1,3 +1,4 @@
 setxkbmap es &    # Set Spanish keyboard layout for X
-nm-applet &       # Launch NetworkManager tray applet (network status/control)
+nm-applet &       # NetworkManager tray applet (network status/control)
 cbatticon &       # Start battery status tray icon
+pasystray &		  # Volume Icon systray
