@@ -1,83 +1,90 @@
-# Package Lists & Install Guide
+# Package List & Install Guide
 
-Synced from `native.txt` and `aur.txt` on **2025-08-29**.
+Synced from `native.txt` and `aur.txt` on **29/08/2025**.
 
-## Native (official repositories)
+This README lists the packages split by **native (official repos)** and **AUR**.
 
-The following packages are expected from the Arch repositories.
-
-| Package | What it's for |
-|---|---|
-| [base-devel](https://archlinux.org/packages/?q=base-devel) | Compilers and essential build tools (make, gcc, etc.). |
-| [git](https://archlinux.org/packages/?q=git) | Distributed version control system. |
-| [openssh](https://archlinux.org/packages/?q=openssh) | Secure shell client and server. |
-| [rsync](https://archlinux.org/packages/?q=rsync) | Fast incremental file transfer and synchronization. |
-| [unzip](https://archlinux.org/packages/?q=unzip) | Extract ZIP archives. |
-| [htop](https://archlinux.org/packages/?q=htop) | Interactive process viewer. |
-| [fastfetch](https://archlinux.org/packages/?q=fastfetch) | Fast system information summary. |
-| [exa](https://archlinux.org/packages/?q=exa) | Modern replacement for `ls`. |
-| [brightnessctl](https://archlinux.org/packages/?q=brightnessctl) | Control backlight brightness from the CLI. |
-| [xorg](https://archlinux.org/packages/?q=xorg) | X.Org X11 display server (meta). |
-| [xorg-xinit](https://archlinux.org/packages/?q=xorg-xinit) | Utilities to start X (e.g., `startx`). |
-| [lightdm](https://archlinux.org/packages/?q=lightdm) | Display manager (login screen). |
-| [lightdm-gtk-greeter](https://archlinux.org/packages/?q=lightdm-gtk-greeter) | GTK greeter for LightDM. |
-| [lightdm-slick-greeter](https://archlinux.org/packages/?q=lightdm-slick-greeter) | Slick (GTK) greeter for LightDM. |
-| [qtile](https://archlinux.org/packages/?q=qtile) | Tiling window manager written in Python. |
-| [picom](https://archlinux.org/packages/?q=picom) | X compositor for transparency and shadows. |
-| [rofi](https://archlinux.org/packages/?q=rofi) | Application launcher and dmenu replacement. |
-| [alacritty](https://archlinux.org/packages/?q=alacritty) | GPU-accelerated terminal emulator. |
-| [xterm](https://archlinux.org/packages/?q=xterm) | Lightweight X terminal emulator. |
-| [thunar](https://archlinux.org/packages/?q=thunar) | Fast, simple file manager (Xfce). |
-| [code](https://archlinux.org/packages/?q=code) | Utility/program package. |
-| [vlc](https://archlinux.org/packages/?q=vlc) | Feature-rich media player. |
-| [papirus-icon-theme](https://archlinux.org/packages/?q=papirus-icon-theme) | Utility/program package. |
-| [pipewire](https://archlinux.org/packages/?q=pipewire) | Audio/video server (PulseAudio/JACK replacement). |
-| [wireplumber](https://archlinux.org/packages/?q=wireplumber) | PipeWire session manager. |
-| [pipewire-pulse](https://archlinux.org/packages/?q=pipewire-pulse) | Utility/program package. |
-| [pipewire-alsa](https://archlinux.org/packages/?q=pipewire-alsa) | Utility/program package. |
-| [pipewire-jack](https://archlinux.org/packages/?q=pipewire-jack) | Utility/program package. |
-| [gst-plugin-pipewire](https://archlinux.org/packages/?q=gst-plugin-pipewire) | Utility/program package. |
-| [pavucontrol](https://archlinux.org/packages/?q=pavucontrol) | PulseAudio/PipeWire volume control GUI. |
-| [pamixer](https://archlinux.org/packages/?q=pamixer) | Audio volume control tool. |
-| [pasystray](https://archlinux.org/packages/?q=pasystray) | Utility/program package. |
-| [network-manager-applet](https://archlinux.org/packages/?q=network-manager-applet) | Utility/program package. |
-| [cbatticon](https://archlinux.org/packages/?q=cbatticon) | Utility/program package. |
-| [ttf-dejavu](https://archlinux.org/packages/?q=ttf-dejavu) | Font package. |
-| [ttf-liberation](https://archlinux.org/packages/?q=ttf-liberation) | Font package. |
-| [noto-fonts](https://archlinux.org/packages/?q=noto-fonts) | Font package. |
-| [noto-fonts-extra](https://archlinux.org/packages/?q=noto-fonts-extra) | Font package. |
-| [noto-fonts-cjk](https://archlinux.org/packages/?q=noto-fonts-cjk) | Font package. |
-| [noto-fonts-emoji](https://archlinux.org/packages/?q=noto-fonts-emoji) | Font package. |
-| [ttf-ubuntu-mono-nerd](https://archlinux.org/packages/?q=ttf-ubuntu-mono-nerd) | Font package. |
-| [ttf-font-awesome](https://archlinux.org/packages/?q=ttf-font-awesome) | Font package. |
-| [ttf-nerd-fonts-symbols](https://archlinux.org/packages/?q=ttf-nerd-fonts-symbols) | Font package. |
-| [ttf-nerd-fonts-symbols-mono](https://archlinux.org/packages/?q=ttf-nerd-fonts-symbols-mono) | Font package. |
-| [xcb-util-cursor](https://archlinux.org/packages/?q=xcb-util-cursor) | Utility/program package. |
-
-**Install (pacman):**
+## Native (pacman)
+Install with pacman:
 ```bash
-sudo pacman -Syu --needed base-devel git openssh rsync unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-gtk-greeter lightdm-slick-greeter qtile picom rofi alacritty xterm thunar code vlc papirus-icon-theme pipewire wireplumber pipewire-pulse pipewire-alsa pipewire-jack gst-plugin-pipewire pavucontrol pamixer pasystray network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono xcb-util-cursor
+# Install all native packages (skip already-installed)
+sudo pacman -S --needed \
+  $(awk '{print $1}' native.txt)
 ```
 
-> Tip: Add `--noconfirm` to skip prompts, and remove packages you don't want before running.
-
----
-
-## AUR (community) packages
-
-These come from the Arch User Repository and require an AUR helper.
-
-| Package | What it's for |
+| Package | What it’s for |
 |---|---|
-| [ccat](https://aur.archlinux.org/packages/ccat) | Colorizing cat (syntax highlighting). |
-| [zen-browser-bin](https://aur.archlinux.org/packages/zen-browser-bin) | Firefox fork focused on performance and UX (prebuilt). |
-| [sublime-text](https://aur.archlinux.org/packages/sublime-text) | Proprietary, fast code editor. |
-| [gtk-theme-material-black](https://aur.archlinux.org/packages/gtk-theme-material-black) | Material Black GTK theme. |
-| [bibata-cursor-theme-bin](https://aur.archlinux.org/packages/bibata-cursor-theme-bin) | Bibata cursor theme (prebuilt). |
-| [discord](https://aur.archlinux.org/packages/discord) | Voice and chat app for communities and gaming. |
+| [pipewire-alsa](https://archlinux.org/packages/extra/x86_64/pipewire-alsa/) | ALSA compatibility for PipeWire. |
+| [rofi](https://archlinux.org/packages/extra/x86_64/rofi/) | App launcher / dmenu. |
+| [pipewire](https://archlinux.org/packages/extra/x86_64/pipewire/) | Audio/video server. |
+| [cbatticon](https://archlinux.org/packages/extra/x86_64/cbatticon/) | Battery tray icon. |
+| [base-devel](https://archlinux.org/packages/core/any/base-devel/) | Build essentials meta package. |
+| [brightnessctl](https://archlinux.org/packages/extra/x86_64/brightnessctl/) | Control screen brightness. |
+| [ttf-dejavu](https://archlinux.org/packages/extra/any/ttf-dejavu/) | DejaVu TTF fonts. |
+| [lightdm](https://archlinux.org/packages/extra/x86_64/lightdm/) | Display manager. |
+| [rsync](https://archlinux.org/packages/extra/x86_64/rsync/) | Fast file sync/transfer. |
+| [fastfetch](https://archlinux.org/packages/extra/x86_64/fastfetch/) | Fast system info fetch. |
+| [ttf-font-awesome](https://archlinux.org/packages/extra/any/ttf-font-awesome/) | Font Awesome TTF. |
+| [alacritty](https://archlinux.org/packages/extra/x86_64/alacritty/) | GPU‑accelerated terminal. |
+| [gst-plugin-pipewire](https://archlinux.org/packages/extra/x86_64/gst-plugin-pipewire/) | GStreamer PipeWire plugin. |
+| [htop](https://archlinux.org/packages/extra/x86_64/htop/) | Interactive process viewer. |
+| [pipewire-jack](https://archlinux.org/packages/extra/x86_64/pipewire-jack/) | JACK replacement shim. |
+| [ttf-liberation](https://archlinux.org/packages/extra/any/ttf-liberation/) | Liberation TTF fonts. |
+| [lightdm-slick-greeter](https://archlinux.org/packages/extra/x86_64/lightdm-slick-greeter/) | LightDM greeter (slick). |
+| [lightdm-gtk-greeter](https://archlinux.org/packages/extra/x86_64/lightdm-gtk-greeter/) | LightDM GTK greeter. |
+| [exa](https://archlinux.org/packages/extra/x86_64/exa/) | Modern ls replacement. |
+| [ttf-nerd-fonts-symbols-mono](https://archlinux.org/packages/extra/any/ttf-nerd-fonts-symbols-mono/) | Nerd Fonts symbols (mono). |
+| [ttf-nerd-fonts-symbols](https://archlinux.org/packages/extra/any/ttf-nerd-fonts-symbols/) | Nerd Fonts symbols. |
+| [network-manager-applet](https://archlinux.org/packages/extra/x86_64/network-manager-applet/) | NetworkManager tray applet. |
+| [noto-fonts-cjk](https://archlinux.org/packages/extra/any/noto-fonts-cjk/) | Noto CJK fonts. |
+| [noto-fonts-emoji](https://archlinux.org/packages/extra/any/noto-fonts-emoji/) | Noto Color Emoji. |
+| [noto-fonts-extra](https://archlinux.org/packages/extra/any/noto-fonts-extra/) | Noto extra variants. |
+| [noto-fonts](https://archlinux.org/packages/extra/any/noto-fonts/) | Noto fonts family. |
+| [papirus-icon-theme](https://archlinux.org/packages/extra/any/papirus-icon-theme/) | Papirus icon theme. |
+| [wireplumber](https://archlinux.org/packages/extra/x86_64/wireplumber/) | PipeWire session manager. |
+| [pamixer](https://archlinux.org/packages/extra/x86_64/pamixer/) | PulseAudio CLI mixer. |
+| [pipewire-pulse](https://archlinux.org/packages/extra/x86_64/pipewire-pulse/) | PulseAudio replacement shim. |
+| [pasystray](https://archlinux.org/packages/extra/x86_64/pasystray/) | PulseAudio tray applet. |
+| [pavucontrol](https://archlinux.org/packages/extra/x86_64/pavucontrol/) | PulseAudio volume control GUI. |
+| [openssh](https://archlinux.org/packages/core/x86_64/openssh/) | SSH client/server. |
+| [qtile](https://archlinux.org/packages/extra/x86_64/qtile/) | Tiling window manager (Python). |
+| [ttf-ubuntu-mono-nerd](https://archlinux.org/packages/extra/any/ttf-ubuntu-mono-nerd/) | Ubuntu Mono Nerd Font. |
+| [vlc](https://archlinux.org/packages/extra/x86_64/vlc/) | Versatile media player. |
+| [git](https://archlinux.org/packages/extra/x86_64/git/) | Version control system. |
+| [code](https://archlinux.org/packages/extra/x86_64/code/) | VS Code (Code – OSS). |
+| [xorg-xinit](https://archlinux.org/packages/extra/x86_64/xorg-xinit/) | X init scripts (startx). |
+| [xterm](https://archlinux.org/packages/extra/x86_64/xterm/) | X terminal emulator. |
+| [xorg](https://archlinux.org/groups/x86_64/xorg/) | X.Org server & drivers (group). |
+| [picom](https://archlinux.org/packages/extra/x86_64/picom/) | X11 compositor. |
+| [xcb-util-cursor](https://archlinux.org/packages/extra/x86_64/xcb-util-cursor/) | XCB cursor utility library. |
+| [thunar](https://archlinux.org/packages/extra/x86_64/thunar/) | XFCE file manager. |
+| [unzip](https://archlinux.org/packages/extra/x86_64/unzip/) | Zip extraction utility. |
 
-**Install (yay or another AUR helper):**
+## AUR (yay or another helper)
+Install with yay (or your preferred AUR helper):
 ```bash
-yay -S --needed ccat zen-browser-bin sublime-text gtk-theme-material-black bibata-cursor-theme-bin discord
+# Install all AUR packages with yay (skip already-installed)
+yay -S --needed \
+  $(awk '{print $1}' aur.txt)
 ```
-> Note: You may replace `yay` with your preferred helper (e.g., `paru`) if you use another one.
+
+| Package | What it’s for |
+|---|---|
+| [bibata-cursor-theme-bin](https://aur.archlinux.org/packages/bibata-cursor-theme-bin) | Bibata cursor theme (binary). |
+| [ccat](https://aur.archlinux.org/packages/ccat) | Colorizing cat (Go). |
+| [discord](https://archlinux.org/packages/extra/x86_64/discord/) | Discord desktop client. |
+| [gtk-theme-material-black](https://aur.archlinux.org/packages/gtk-theme-material-black) | Material‑style dark GTK theme. |
+| [sublime-text](https://aur.archlinux.org/packages/sublime-text-4) | Sublime Text (stable). |
+| [zen-browser-bin](https://aur.archlinux.org/packages/zen-browser-bin) | Zen Browser (binary). |
+
+### Install `yay` (AUR helper)
+
+```bash
+# 1) Ensure build tools are present
+sudo pacman -S --needed base-devel git
+
+# 2) Build and install yay from AUR
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
