@@ -59,6 +59,8 @@ keys = [
     Key([mod], "m",      lazy.spawn("rofi -show drun"),    desc="App launcher (rofi)"),
     Key([mod], "b",      lazy.spawn("zen-browser"),        desc="Default browser"),
     Key([mod], "e",      lazy.spawn("thunar"),             desc="File manager"),
+    Key([mod], "s",      lazy.spawn("flameshot gui -c"),   desc="Snipping Tool Clipboard"),
+    Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),  desc="Snipping Tool General"),
 
     # --- [VOLUME] ---
     Key([], "XF86AudioLowerVolume", lazy.spawn("pamixer --decrease 5")),

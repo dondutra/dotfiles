@@ -15,14 +15,11 @@ lightdm-slick-greeter
 qtile
 picom
 rofi
-feh
 alacritty
 xterm
 thunar
 code
-firefox
 vlc
-imv
 papirus-icon-theme
 pipewire
 wireplumber
