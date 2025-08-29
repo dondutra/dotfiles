@@ -1,12 +1,14 @@
 # 🧙‍♂️ Don Dutra Dotfiles
 
 ## Screenshot Galery
-> See [`screenshots`](screenshots/)
+> See [`screenshots`](.screenshots/)
 
-[![Preview](.screenshots/1.png)](.screenshots/1.png)
-[![Preview](.screenshots/2.png)](.screenshots/2.png)
-[![Preview](.screenshots/3.png)](.screenshots/3.png)
-[![Preview](.screenshots/4.png)](.screenshots/4.png)
+<p align="center">
+  <img src=".screenshots/1.png" alt="Screenshot 1" width="45%"/>
+  <img src=".screenshots/2.png" alt="Screenshot 2" width="45%"/>
+  <img src=".screenshots/3.png" alt="Screenshot 3" width="45%"/>
+  <img src=".screenshots/4.png" alt="Screenshot 4" width="45%"/>
+</p>
 
 ---
 
