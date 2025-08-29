@@ -1,10 +1,12 @@
 # dotfiles — Arch visual setup (Qtile • Alacritty • Rofi • Picom • GTK • LightDM)
 
-This repo shows **how to install my Arch setup** (and, in the future, **switch between my themes**) — it does **not** teach how to create or customize dotfiles from scratch.
+This repo shows **how to install & use my Arch setup** — it does **not** teach how to create or customize dotfiles from scratch.
 
 The repository has two purposes:
-1) **Personalization (visual setup)** — ✅ fully covered here.  
-2) **System functionality** (audio, multi‑monitor helpers, mounts, etc.) — ⏳ *placeholder for later.*
+1) **Personalization (visual setup).**  
+2) **System functionality (audio, multi‑monitor helpers, mounts, etc.)**
+
+> Thereby, it may be seen as a whole personalized working Arch enviroment. Hence, I encourage you to check the packages you'll be installing so you can carefully add/remove exactly the ones you want.
 
 ---
 
@@ -32,44 +34,7 @@ You can delete this folder after finishing because configs are copied into your 
 
 ## Install the packages
 
-### 0) Update first
-
-```bash
-sudo pacman -Syu
-```
-
-### 1) Install core/native packages (single command)
-
-> If a package is already present, `--needed` will skip it.  
-> This list mirrors `dotfiles/packages/native.txt`.
-
-```bash
-sudo pacman -S --needed base-devel git rsync openssh unzip htop fastfetch exa brightnessctl xorg xorg-xinit lightdm lightdm-slick-greeter lightdm-gtk-greeter qtile picom rofi feh alacritty xterm thunar code firefox vlc imv papirus-icon-theme pulseaudio pavucontrol pamixer volumeicon network-manager-applet cbatticon ttf-dejavu ttf-liberation noto-fonts noto-fonts-extra noto-fonts-cjk noto-fonts-emoji ttf-ubuntu-mono-nerd ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
-```
-
-> Install the proper GPU driver for your hardware (e.g., `xf86-video-amdgpu`, `nvidia`) if needed.
-
-### 2) Install **yay** (AUR helper)
-
-Requires `base-devel` and `git` (installed via the native list above).
-
-```bash
-cd ~
-git clone https://aur.archlinux.org/yay-bin.git
-cd yay-bin
-makepkg -si
-cd ..
-rm -rf yay-bin
-```
-
-### 3) AUR packages (from `packages/aur.txt`)
-
-> This list mirrors `dotfiles/packages/native.txt`.
-
-```bash
-yay -S ccat zen-browser-bin sublime-text gtk-theme-material-black
-```
----
+See `packages/README.md` for installation steps covering both native Arch (pacman) and AUR packages.
 
 ## Enable system services
 
@@ -111,11 +76,11 @@ chmod +x ~/.config/qtile/autostart.sh 2>/dev/null || true
 
 ---
 
-## Copy my LightDM configs
+## Copy system configs (/etc)
 ```bash
-sudo rsync -avh ~/dotfiles/etc/lightdm/ /etc/lightdm/
+sudo rsync -avh ~/dotfiles/etc/ /etc/
 ```
-
+This copies the entire `etc` directory from the repo into `/etc`. It only adds/overwrites files, it does not delete existing files there.
 ---
 
 ## Reboot
@@ -123,7 +88,22 @@ sudo rsync -avh ~/dotfiles/etc/lightdm/ /etc/lightdm/
 reboot
 ```
 
-**Everything should be working as expected now. If everything is fine you may leave the guide here. If something is failing, below we cover some troubleshooting.**
+**Everything should be working as expected now. If everything is fine you may leave the guide here and optionally cleanup as seen next.**
+
+---
+
+## Cleanup (optional)
+
+Once you confirm everything works, you can remove the cloned repository:
+
+```bash
+cd ~
+rm -rf ~/dotfiles
+```
+
+---
+
+> Now installation is fully complete. Below we'll cover some useful tips you may want to know in order to use my personalized enviroment correctly.
 
 ---
 
@@ -162,53 +142,6 @@ reboot
 Now, each time you want the qtile session after a reboot, run:
 ```bash
   startx && ~/.xprofile
-```
-
----
-
-## Troubleshooting
-
-- **“Failed to start Light Display Manager”**
-  - Confirm X11 is installed (`xorg`/`xorg-server`), and a greeter is selected in `/etc/lightdm/lightdm.conf`.
-  - See logs: `journalctl -u lightdm --no-pager`
-
-- **No Qtile option on the login screen**
-  - Ensure `qtile` is installed and `/usr/share/xsessions/qtile.desktop` exists (provided by the package).
-
-- **Black screen / glitches**
-  - Install the appropriate GPU driver for your hardware (e.g., `xf86-video-amdgpu`, `nvidia`).
-
-- **Wallpaper doesn’t change**
-  - Open `~/.config/qtile/config.py` and verify the wallpaper path is valid under `~/.config/wallpapers/`.  
-  - Note: this setup does **not** rely on `feh` for wallpaper.
-
-- **Audio stack (correct)**  
-  - This setup uses **PulseAudio** packages (`pulseaudio`, `pavucontrol`, `pamixer`, `volumeicon`).  
-  - If you want **PipeWire**, replace these with PipeWire equivalents yourself (not covered here).
-
-> If nothing of above works, try starting all over again. If still not working, welcome to Archlinux ;)
-
----
-
-## Part 2 — System functionality (placeholder)
-
-This section will later cover:
-- PulseAudio basics and tweaks
-- Multiple monitors (quick helpers)
-- Auto-mounting removable drives
-- Everyday CLI tools and services
-
-> Not implemented yet.
-
----
-
-## Cleanup (optional)
-
-Once you confirm everything works, you can remove the cloned repository:
-
-```bash
-cd ~
-rm -rf ~/dotfiles
 ```
 
 ---
