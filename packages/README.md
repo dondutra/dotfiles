@@ -45,6 +45,8 @@ sudo pacman -S --needed \
 | [pamixer](https://archlinux.org/packages/extra/x86_64/pamixer/) | PulseAudio CLI mixer. |
 | [pipewire-pulse](https://archlinux.org/packages/extra/x86_64/pipewire-pulse/) | PulseAudio replacement shim. |
 | [pasystray](https://archlinux.org/packages/extra/x86_64/pasystray/) | PulseAudio tray applet. |
+| [udisks2](https://archlinux.org/packages/extra/x86_64/udisks2/) | Disk manipulation service. |
+| [udiskie](https://archlinux.org/packages/extra/x86_64/udiskie/) | Disk automounter with systray icon. |
 | [pavucontrol](https://archlinux.org/packages/extra/x86_64/pavucontrol/) | PulseAudio volume control GUI. |
 | [openssh](https://archlinux.org/packages/core/x86_64/openssh/) | SSH client/server. |
 | [qtile](https://archlinux.org/packages/extra/x86_64/qtile/) | Tiling window manager (Python). |
