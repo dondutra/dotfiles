@@ -3,3 +3,4 @@ zen-browser-bin
 sublime-text
 gtk-theme-material-black
 bibata-cursor-theme-bin
+discord
