@@ -3,10 +3,14 @@
 ## Screenshot Galery
 > See [`screenshots`](screenshots/)
 
-[![Preview](screenshots/1.png)](screenshots/1.png)
-[![Preview](screenshots/2.png)](screenshots/2.png)
-[![Preview](screenshots/3.png)](screenshots/3.png)
-[![Preview](screenshots/4.png)](screenshots/4.png)
+[![Preview](.screenshots/1.png)](.screenshots/1.png)
+[![Preview](.screenshots/2.png)](.screenshots/2.png)
+[![Preview](.screenshots/3.png)](.screenshots/3.png)
+[![Preview](.screenshots/4.png)](.screenshots/4.png)
+
+---
+
+## Introduction
 
 This repo shows **how to install & use my Arch setup** — it does **not** teach how to create or customize dotfiles from scratch.
 
