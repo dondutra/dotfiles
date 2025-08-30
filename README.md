@@ -149,6 +149,48 @@ startx
 
 ---
 
+## QTile Keybindings
+
+Table with my qtile keybindings. You may change them as you like in the [`qtile config file`](home/.config/qtile/config.py).
+
+| Keybinding            | Description             |
+|:----------------------|:------------------------|
+| mod+Left              | Focus left              |
+| mod+Right             | Focus right             |
+| mod+Down              | Focus down              |
+| mod+Up                | Focus up                |
+| mod+space             | Focus next window       |
+| mod+shift+Left        | Move window left        |
+| mod+shift+Right       | Move window right       |
+| mod+shift+Down        | Move window down        |
+| mod+shift+Up          | Move window up          |
+| mod+control+Left      | Grow to the left        |
+| mod+control+Right     | Grow to the right       |
+| mod+control+Down      | Grow down               |
+| mod+control+Up        | Grow up                 |
+| mod+n                 | Reset window sizes      |
+| mod+Tab               | Cycle layouts           |
+| mod+w                 | Close focused window    |
+| mod+f                 | Toggle fullscreen       |
+| mod+t                 | Toggle floating         |
+| mod+Return            | Launch terminal         |
+| mod+m                 | App launcher (rofi)     |
+| mod+b                 | Default browser         |
+| mod+e                 | File manager            |
+| mod+s                 | Snipping Tool Clipboard |
+| mod+shift+s           | Snipping Tool General   |
+| XF86AudioLowerVolume  | Decrease volume         |
+| XF86AudioRaiseVolume  | Increase volume         |
+| XF86AudioMute         | Mute audio              |
+| XF86MonBrightnessUp   | Increase brightness     |
+| XF86MonBrightnessDown | Decrease brightness     |
+| mod+control+r         | Restart Qtile           |
+| mod+control+q         | Shutdown Qtile          |
+| mod+r                 | Command prompt          |
+| mod+l                 | Lock session            |
+
+---
+
 ## License
 
 MIT — no warranty.
