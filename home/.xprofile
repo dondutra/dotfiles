@@ -3,3 +3,4 @@ udiskie -t &	  # External disks management systray
 nm-applet &       # NetworkManager tray applet (network status/control)
 cbatticon &       # Start battery status tray icon
 pasystray &		  # Volume Icon systray
+export XCURSOR_THEME=Bibata-Modern-Ice # Use cursor
