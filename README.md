@@ -58,7 +58,7 @@ You can delete this folder after finishing because configs are copied into your 
 
 ## Install the packages
 
-See [`packages/README.md`](packages/README.md) for installation steps covering both native Arch (pacman) and AUR packages.
+See [packages/README.md](packages/README.md) for installation steps covering both native Arch (pacman) and AUR packages.
 
 ## Enable system services
 
@@ -151,7 +151,7 @@ startx
 
 ## QTile Keybindings
 
-Table with my qtile keybindings. You may change them as you like in the [`qtile config file`](home/.config/qtile/config.py).
+Table with my qtile keybindings. You may change them as you like in the [qtile config file](home/.config/qtile/config.py).
 
 | Keybinding            | Description             |
 |:----------------------|:------------------------|
@@ -193,4 +193,4 @@ Table with my qtile keybindings. You may change them as you like in the [`qtile 
 
 ## License
 
-MIT — no warranty.
+Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.
