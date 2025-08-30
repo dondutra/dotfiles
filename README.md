@@ -30,9 +30,19 @@ Thereby, it may be seen as a whole personalized working Arch enviroment. Hence, 
 - Your user can run commands with **sudo**.  
 - Internet access and basic shell usage.
 
+Update your system:
+```bash
+sudo pacman -Syu
+```
+
 ---
 
 ## Get the repository
+
+> Install git if not already installed:
+> ```bash
+> sudo pacman -S --needed git
+> ```
 
 Pick a folder (I'll assume you put it in your home), then clone and enter the repo:
 
