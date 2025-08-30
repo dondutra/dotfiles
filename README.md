@@ -1,7 +1,7 @@
 # 🧙‍♂️ Don Dutra Dotfiles
 
 ## Screenshot Galery
-> See [`screenshots`](.screenshots/)
+> See [`screenshots`](.screenshots/) for more screenshots!
 
 <p align="center">
   <img src=".screenshots/1.png" alt="Screenshot 1" width="45%"/>
@@ -60,8 +60,7 @@ See [`packages/README.md`](packages/README.md) for installation steps covering b
 
 2) Enable PipeWire:
    ```bash
-   systemctl --user --now enable wireplumber.service
-   systemctl --user restart pipewire pipewire-pulse
+   systemctl --user enable wireplumber.service
    ```
 
 ---
@@ -75,6 +74,8 @@ reboot
 
 Now the login manager (lightdm) should open. Enter your credentials. Default qtile session should start.
 
+> Note: sometimes lightdm might use a different keyboard layout by default which leads to incorrect credentials by mistake. Double check the characters you are inputting!
+
 ---
 
 ## Place the dotfiles
@@ -85,7 +86,7 @@ Now the login manager (lightdm) should open. Enter your credentials. Default qti
 rsync -avh ~/dotfiles/home/ ~/
 
 # Ensure autostart script is executable (Qtile may call it)
-chmod +x ~/.config/qtile/autostart.sh 2>/dev/null || true
+chmod +x ~/.config/qtile/autostart.sh
 ```
 
 ---
@@ -125,39 +126,16 @@ rm -rf ~/dotfiles
 ## Entering QTile without a display manager (use **startx**)
 
 Sometimes, lightdm is the only problem and qtile is fine. If you don't need a graphical login but you want everything else you may want to proceed as follows:
+```bash
+startx
+```
 
-1) Create or edit `~/.xinitrc`:
-   ```bash
-   nano ~/.xinitrc
-   ```
-   Put this as the last line and save:
-   ```bash
-   [ -f ~/.xprofile ] && . ~/.xprofile
-   exec qtile start
-   ```
-   This loads your session environment when using startx
-
-2) Start X:
-   ```bash
-   startx
-   ```
-
-3) Since you started it manually, you will need to run .xprofile manually as well:
-   ```bash
-   cd ~
-   chmod +x .xprofile
-   ~/.xprofile
-   ```
+> Note: The `startx` command relies on `.xinitrc` located in ~/.
 
 > If `startx` says **command not found**, install `xorg-xinit`:
 > ```bash
 > sudo pacman -S xorg-xinit
 > ```
-
-Now, each time you want the qtile session after a reboot, run:
-```bash
-  startx && ~/.xprofile
-```
 
 ---
 
