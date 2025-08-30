@@ -8,7 +8,7 @@ This README lists the packages split by **native (official repos)** and **AUR**.
 Install with pacman:
 ```bash
 # Install all native packages (skip already-installed)
-sudo pacman -S --needed \
+sudo pacman -S --needed --noconfirm \
   $(awk '{print $1}' native.txt)
 ```
 
@@ -66,7 +66,7 @@ sudo pacman -S --needed \
 Install with yay (or your preferred AUR helper):
 ```bash
 # Install all AUR packages with yay (skip already-installed)
-yay -S --needed \
+yay -S --needed --noconfirm \
   $(awk '{print $1}' aur.txt)
 ```
 
@@ -86,7 +86,14 @@ yay -S --needed \
 sudo pacman -S --needed base-devel git
 
 # 2) Build and install yay from AUR
+cd ~
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+
+# 3) Remove leftovers (optional)
+cd ~/yay
+makepkg -C
+cd ~
+rm -rf yay
 ```
