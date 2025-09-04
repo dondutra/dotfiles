@@ -29,6 +29,7 @@ Thereby, it may be seen as a whole personalized working Arch enviroment. Hence, 
 - A fresh **Arch Linux** installation. 
 - Your user can run commands with **sudo**.  
 - Internet access and basic shell usage.
+- All **video drivers** are installed & up to date.
 
 Update your system:
 ```bash
@@ -129,23 +130,7 @@ rm -rf ~/dotfiles
 
 ---
 
-**Now installation is fully complete.** Below we'll cover some useful tips you may want to know in order to use my personalized enviroment correctly.
-
----
-
-## Entering QTile without a display manager (use **startx**)
-
-Sometimes, lightdm is the only problem and qtile is fine. If you don't need a graphical login but you want everything else you may want to proceed as follows:
-```bash
-startx
-```
-
-> Note: The `startx` command relies on `.xinitrc` located in ~/.
-
-> If `startx` says **command not found**, install `xorg-xinit`:
-> ```bash
-> sudo pacman -S xorg-xinit
-> ```
+**Now installation is fully complete.** Below we'll cover some useful tips/troubleshooting you may want to know in order to use my personalized enviroment correctly.
 
 ---
 
@@ -188,6 +173,77 @@ Table with my qtile keybindings. You may change them as you like in the [qtile c
 | mod+control+q         | Shutdown Qtile          |
 | mod+r                 | Command prompt          |
 | mod+l                 | Lock session            |
+
+---
+
+## Entering QTile without a display manager (use **startx**)
+
+Sometimes, lightdm is the only problem and qtile is fine. If you don't need a graphical login but you want everything else you may want to proceed as follows:
+```bash
+startx
+```
+
+> Note: The `startx` command relies on `.xinitrc` located in ~/.
+
+> If `startx` says **command not found**, install `xorg-xinit`:
+> ```bash
+> sudo pacman -S xorg-xinit
+> ```
+
+---
+
+## Everything looks buggy...
+
+> You open multiple windows and some of them are invisible, the bar icons show up wrongly or don't show up at all, workspaces icons highlighting doesn't work, etc.
+
+The most likely reason is a conflict with the image compositor picom. You can check it by killing its process:
+
+```bash
+pkill picom
+```
+
+If now everything seems normal, then you got your answer. Now, you have 3 options:
+
+**A) Change the rendering backend (Easy Fix):**
+> Sometimes the only problem is the compositor rendering backend, which doesn't support 3D acceleration.
+
+Switch from glx to xrender in the [`picom config`](home/.config/picom/picom.conf):
+```bash
+backend = "xrender";
+vsync = true; # comment or remove this line
+```
+
+**B) Update your video drivers (Recommended):**
+> I strongly recommend to do your own research on this since it may vary from one computer to another.
+
+**C) Just use my enviroment without picom:**
+> Things will look less aesthetic (no transparency on terminal or no rounded borders) but at least it's working.
+
+Take out the picom launch command line from [`qtile autostart`](home/.config/qtile/autostart.sh) and optionally uninstall picom.
+
+---
+
+## I see less FPS/Resolution than the one allowed by my screen...
+
+> Your skilled eyes noticed that the video display is at a fewer refresh rate or resolution than the one supported by your screen.
+
+Configure xrandr properly:
+```bash
+# Identify your video profile
+xrandr --verbose | grep -A5 -E "connected|current|preferred|Hz"
+# you should focus on "(DP-0..9/HDMI-0..9) connected"
+
+# Configure it properly:
+xrandr --output DP-2 --mode 1920x1080 --rate 144
+# this is an example, change it with your values
+```
+
+If the problem is solved, then make it permanent by adding it to [`.xprofile`](home/.xprofile)
+```bash
+# Add/Edit this line
+xrandr --output DP-2 --mode 1920x1080 --rate 144 &
+# don't forget the ampersand '&' at the end!
+```
 
 ---
 
