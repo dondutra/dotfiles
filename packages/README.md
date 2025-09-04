@@ -92,8 +92,6 @@ cd yay
 makepkg -si
 
 # 3) Remove leftovers (optional)
-cd ~/yay
-makepkg -C
 cd ~
 rm -rf yay
 ```
