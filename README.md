@@ -223,9 +223,9 @@ Take out the picom launch command line from [`qtile autostart`](home/.config/qti
 
 ---
 
-## I see less FPS/Resolution than the one allowed by my screen...
+## I see less FPS/Resolution than the one allowed by my screen (or complete black!)...
 
-> Your skilled eyes noticed that the video display is at a fewer refresh rate or resolution than the one supported by your screen.
+> Your skilled eyes noticed that the video display is at a fewer refresh rate or resolution than the one supported by your screen, or maybe it is just plain dark.
 
 Configure xrandr properly:
 ```bash

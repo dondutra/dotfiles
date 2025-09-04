@@ -3,4 +3,5 @@ udiskie -t &	  # External disks management systray
 nm-applet &       # NetworkManager tray applet (network status/control)
 cbatticon &       # Start battery status tray icon
 pasystray &		  # Volume Icon systray
+xrandr --output DP-2 --mode 1920x1080 --rate 144 & # My Screen Settings
 export XCURSOR_THEME=Bibata-Modern-Ice # Use cursor
