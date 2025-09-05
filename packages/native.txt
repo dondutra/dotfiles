@@ -47,3 +47,4 @@ udisks2
 udiskie
 flameshot
 ffmpeg
+arandr

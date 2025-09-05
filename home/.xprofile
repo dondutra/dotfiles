@@ -3,5 +3,6 @@ udiskie -t &	  # External disks management systray
 nm-applet &       # NetworkManager tray applet (network status/control)
 cbatticon &       # Start battery status tray icon
 pasystray &		  # Volume Icon systray
-xrandr --output DP-2 --mode 1920x1080 --rate 144 & # My Screen Settings
+xrandr --output DP-0 --off --output DP-1 --off --output HDMI-0 --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-2 --primary --mode 1920x1080 --rate 144 --pos 0x0 --rotate normal
+ & # My Screen Settings (double monitor)
 export XCURSOR_THEME=Bibata-Modern-Ice # Use cursor

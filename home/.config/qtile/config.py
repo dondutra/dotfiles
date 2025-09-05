@@ -178,6 +178,48 @@ screens = [
         wallpaper=wall,
         wallpaper_mode="fill",
     ),
+    Screen( # same config as above but w/o systray
+        top=bar.Bar(
+            [
+                # widget.CurrentLayout(),
+                widget.WindowName(
+                    padding=12,
+                    foreground="#d1b3fc",
+                    font='UbuntuMono Nerd Font',
+                    fontsize=15,
+                    markup=True,
+                    fmt="<b>{}</b>",
+                ),
+                widget.Spacer(),
+                widget.GroupBox(
+                    font='UbuntuMono Nerd Font Mono',
+                    fontsize=36,
+                    padding_x=10,
+                    highlight_method='text',
+                    this_current_screen_border="#d1b3fc",
+                    active='#ffffff',   # groups with windows (not selected)
+                    inactive='#7a7a7a', # empty groups
+                    rounded=False,
+                ),
+                widget.Spacer(),
+                widget.Clock(
+                    padding=12,
+                    format="%a %H:%M\n%d/%m/%Y",
+                    font='UbuntuMono Nerd Font',
+                    fontsize=14,
+                    markup=True,
+                    fmt="<b>{}</b>",
+                ),
+            ],
+            35,  # bar height
+            margin=[8, 8, 0, 8],  # top, right, bottom, left
+            border_width=2,
+            border_color='#9180bd',
+        ),
+        background="#7a7a7a",
+        wallpaper=wall,
+        wallpaper_mode="fill",
+    ),
 ]
 
 # ----------------------------------------------------------------------------- 

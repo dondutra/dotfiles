@@ -192,7 +192,42 @@ startx
 
 ---
 
-## Everything looks buggy...
+## Black screen or less FPS/Resolution than the one allowed by my screen
+
+> Your skilled eyes noticed that the video display is at a fewer refresh rate or resolution than the one supported by your screen, or maybe it is just plain dark.
+
+Configure xrandr (video output) properly:
+
+**A) By CLI:**
+```bash
+# Identify your video profile
+xrandr --verbose | grep -A5 -E "connected|current|preferred|Hz"
+# you should focus on "(DP-0..9/HDMI-0..9) connected"
+
+# Configure it properly:
+xrandr --output DP-2 --mode 1920x1080 --rate 144
+# this is an example, change it with your values
+```
+
+**B) By GUI: (Recommended for multiple screen setup)**
+
+1. Launch `arandr`.
+2. Configure setup.
+3. Save script.
+4. Copy the script command line.
+5. You may delete the script folder (optional).
+
+> For both A/B options:
+If the problem is solved, then make it permanent by adding it to [`.xprofile`](home/.xprofile)
+```bash
+# Add/Edit this line with your command
+xrandr --output DP-2 --mode 1920x1080 --rate 144 &
+# don't forget the ampersand '&' at the end!
+```
+
+---
+
+## Everything looks buggy
 
 > You open multiple windows and some of them are invisible, the bar icons show up wrongly or don't show up at all, workspaces icons highlighting doesn't work, etc.
 
@@ -220,30 +255,6 @@ vsync = true; # comment or remove this line
 > Things will look less aesthetic (no transparency on terminal or no rounded borders) but at least it's working.
 
 Take out the picom launch command line from [`qtile autostart`](home/.config/qtile/autostart.sh) and optionally uninstall picom.
-
----
-
-## I see less FPS/Resolution than the one allowed by my screen (or complete black!)...
-
-> Your skilled eyes noticed that the video display is at a fewer refresh rate or resolution than the one supported by your screen, or maybe it is just plain dark.
-
-Configure xrandr properly:
-```bash
-# Identify your video profile
-xrandr --verbose | grep -A5 -E "connected|current|preferred|Hz"
-# you should focus on "(DP-0..9/HDMI-0..9) connected"
-
-# Configure it properly:
-xrandr --output DP-2 --mode 1920x1080 --rate 144
-# this is an example, change it with your values
-```
-
-If the problem is solved, then make it permanent by adding it to [`.xprofile`](home/.xprofile)
-```bash
-# Add/Edit this line
-xrandr --output DP-2 --mode 1920x1080 --rate 144 &
-# don't forget the ampersand '&' at the end!
-```
 
 ---
 
