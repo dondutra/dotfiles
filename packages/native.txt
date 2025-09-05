@@ -46,3 +46,4 @@ xcb-util-cursor
 udisks2
 udiskie
 flameshot
+ffmpeg
