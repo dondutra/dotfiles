@@ -133,21 +133,36 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+transparent = "#00000000"
+module_bg = "#282a36" # dark background for the pills
+
 wall = os.path.expanduser("~/.config/wallpapers/black-landscape.png")
 screens = [
     Screen(
         top=bar.Bar(
             [
                 # widget.CurrentLayout(),
+
+                # Left Module
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
                 widget.WindowName(
-                    padding=12,
+                    width=bar.CALCULATED,
+                    padding=10,
                     foreground="#d1b3fc",
+                    background=module_bg,
                     font='UbuntuMono Nerd Font',
                     fontsize=15,
                     markup=True,
                     fmt="<b>{}</b>",
+                    max_chars=35,
                 ),
-                widget.Spacer(),
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
+
+                # Transparent Gap
+                widget.Spacer(length=bar.STRETCH, background=transparent),
+
+                # Middle Module
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
                 widget.GroupBox(
                     font='UbuntuMono Nerd Font Mono',
                     fontsize=36,
@@ -157,9 +172,19 @@ screens = [
                     active='#ffffff',   # groups with windows (not selected)
                     inactive='#7a7a7a', # empty groups
                     rounded=False,
+                    background=module_bg,
                 ),
-                widget.Spacer(),
-                widget.Systray(padding=12),
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
+
+                # Transparent Gap
+                widget.Spacer(length=bar.STRETCH, background=transparent),
+
+                # Right Module
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
+                widget.Systray(
+                    background=module_bg,
+                    padding=12
+                ),
                 widget.Clock(
                     padding=12,
                     format="%a %H:%M\n%d/%m/%Y",
@@ -167,14 +192,15 @@ screens = [
                     fontsize=14,
                     markup=True,
                     fmt="<b>{}</b>",
+                    background=module_bg,
                 ),
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
             ],
             35,  # bar height
             margin=[8, 8, 0, 8],  # top, right, bottom, left
-            border_width=2,
-            border_color='#9180bd',
+            background=transparent,
+            border_width=0,
         ),
-        background="#7a7a7a",
         wallpaper=wall,
         wallpaper_mode="fill",
     ),
@@ -182,15 +208,27 @@ screens = [
         top=bar.Bar(
             [
                 # widget.CurrentLayout(),
+
+                # Left Module
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
                 widget.WindowName(
-                    padding=12,
+                    width=bar.CALCULATED,
+                    padding=10,
                     foreground="#d1b3fc",
+                    background=module_bg,
                     font='UbuntuMono Nerd Font',
                     fontsize=15,
                     markup=True,
                     fmt="<b>{}</b>",
+                    max_chars=35,
                 ),
-                widget.Spacer(),
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
+
+                # Transparent Gap
+                widget.Spacer(length=bar.STRETCH, background=transparent),
+
+                # Middle Module
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
                 widget.GroupBox(
                     font='UbuntuMono Nerd Font Mono',
                     fontsize=36,
@@ -200,8 +238,15 @@ screens = [
                     active='#ffffff',   # groups with windows (not selected)
                     inactive='#7a7a7a', # empty groups
                     rounded=False,
+                    background=module_bg,
                 ),
-                widget.Spacer(),
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
+
+                # Transparent Gap
+                widget.Spacer(length=bar.STRETCH, background=transparent),
+
+                # Right Module
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
                 widget.Clock(
                     padding=12,
                     format="%a %H:%M\n%d/%m/%Y",
@@ -209,12 +254,14 @@ screens = [
                     fontsize=14,
                     markup=True,
                     fmt="<b>{}</b>",
+                    background=module_bg,
                 ),
+                widget.TextBox(text='', foreground=module_bg, background=transparent, fontsize=40, padding=0),
             ],
             35,  # bar height
             margin=[8, 8, 0, 8],  # top, right, bottom, left
-            border_width=2,
-            border_color='#9180bd',
+            border_width=0,
+            background=transparent,
         ),
         background="#7a7a7a",
         wallpaper=wall,
