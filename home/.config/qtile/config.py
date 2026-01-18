@@ -8,6 +8,7 @@
 
 import os
 import subprocess
+import json
 
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
@@ -17,6 +18,21 @@ from libqtile import hook
 # Mod key and preferred terminal
 mod = "mod4"          # Use {mod1 (Alt)} / {mod4} for Super/Windows
 terminal = "alacritty"
+
+# Themes stuff
+transparent = "#00000000"
+
+theme_script = os.path.expanduser("~/.config/qtile/theme_selector.py")
+theme_path = os.path.expanduser("~/.config/qtile/themes.json")
+with open(theme_path, "r") as f:
+    theme_data = json.load(f)
+
+active_name = theme_data["current_theme"]
+theme = theme_data["themes"][active_name]
+
+module_bg = theme["module_bg"]
+focus_color = theme["focus"]
+#wall = os.path.expanduser(theme["wallpaper"])
 
 # Run autostart script once per session (spawns your helpers)
 @hook.subscribe.startup_once
@@ -72,10 +88,11 @@ keys = [
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
 
     # --- [CONTROL] ---
-    Key([mod, "control"], "r", lazy.restart(),          desc="Restart Qtile"),
+    Key([mod, "control"], "r", lazy.spawn(f"python3 {theme_script} dont_cycle"),          desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(),         desc="Shutdown Qtile"),
     Key([mod], "r",             lazy.spawncmd(),        desc="Command prompt"),
     Key([mod], "l",             lazy.spawn("dm-tool lock"), desc="Lock session"),
+    Key([mod, "control"], "t", lazy.spawn(f"python3 {theme_script}"), desc="Cycle Themes"),
 ]
 
 # ----------------------------------------------------------------------------- 
@@ -101,7 +118,7 @@ for i, group in enumerate(groups):
 # Layouts
 # -----------------------------------------------------------------------------
 layout_conf = {
-    'border_focus': '#d1b3fc',
+    'border_focus': focus_color,
     'border_width': 4,
     'margin': 8,
 }
@@ -133,10 +150,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-transparent = "#00000000"
-module_bg = "#282a36" # dark background for the pills
-
-wall = os.path.expanduser("~/.config/wallpapers/black-landscape.png")
+#wall = os.path.expanduser("~/.config/wallpapers/black-landscape.png")
 screens = [
     Screen(
         top=bar.Bar(
@@ -148,7 +162,7 @@ screens = [
                 widget.WindowName(
                     width=bar.CALCULATED,
                     padding=10,
-                    foreground="#d1b3fc",
+                    foreground=focus_color,
                     background=module_bg,
                     font='UbuntuMono Nerd Font',
                     fontsize=15,
@@ -168,7 +182,7 @@ screens = [
                     fontsize=36,
                     padding_x=10,
                     highlight_method='text',
-                    this_current_screen_border="#d1b3fc",
+                    this_current_screen_border=focus_color,
                     active='#ffffff',   # groups with windows (not selected)
                     inactive='#7a7a7a', # empty groups
                     rounded=False,
@@ -201,8 +215,8 @@ screens = [
             background=transparent,
             border_width=0,
         ),
-        wallpaper=wall,
-        wallpaper_mode="fill",
+        #wallpaper=wall,
+        #wallpaper_mode="fill",
     ),
     Screen( # same config as above but w/o systray
         top=bar.Bar(
@@ -214,7 +228,7 @@ screens = [
                 widget.WindowName(
                     width=bar.CALCULATED,
                     padding=10,
-                    foreground="#d1b3fc",
+                    foreground=focus_color,
                     background=module_bg,
                     font='UbuntuMono Nerd Font',
                     fontsize=15,
@@ -234,7 +248,7 @@ screens = [
                     fontsize=36,
                     padding_x=10,
                     highlight_method='text',
-                    this_current_screen_border="#d1b3fc",
+                    this_current_screen_border=focus_color,
                     active='#ffffff',   # groups with windows (not selected)
                     inactive='#7a7a7a', # empty groups
                     rounded=False,
@@ -263,9 +277,9 @@ screens = [
             border_width=0,
             background=transparent,
         ),
-        background="#7a7a7a",
-        wallpaper=wall,
-        wallpaper_mode="fill",
+        background=transparent,
+        #wallpaper=wall,
+        #wallpaper_mode="fill",
     ),
 ]
 

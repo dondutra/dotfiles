@@ -1,0 +1,30 @@
+{
+    "current_theme": "obsidian",
+    "themes": {
+        "obsidian": {
+            "focus": "#d1b3fc",
+            "module_bg": "#282a36",
+            "wallpaper": "~/.config/wallpapers/black-landscape.png"
+        },
+        "blood": {
+            "focus": "#fc4447",
+            "module_bg": "#0F111A",
+            "wallpaper": "~/.config/wallpapers/vampire.jpg"
+        },
+        "inabakumori": {
+            "focus": "#d1d1d1",
+            "module_bg": "#282a36",
+            "wallpaper": "~/.config/wallpapers/osagechan.jpeg"
+        },
+        "monokuma": {
+            "focus": "#fc4447",
+            "module_bg": "#0F111A",
+            "wallpaper": "~/.config/wallpapers/monokuma-eye.png"
+        },
+        "spirit": {
+            "focus": "#ff00ff",
+            "module_bg": "#0d0221",
+            "wallpaper": "~/.config/wallpapers/31.jpg"
+        }
+    }
+}
