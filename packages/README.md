@@ -61,6 +61,7 @@ sudo pacman -S --needed --noconfirm \
 | [xcb-util-cursor](https://archlinux.org/packages/extra/x86_64/xcb-util-cursor/) | XCB cursor utility library. |
 | [thunar](https://archlinux.org/packages/extra/x86_64/thunar/) | XFCE file manager. |
 | [unzip](https://archlinux.org/packages/extra/x86_64/unzip/) | Zip extraction utility. |
+| [feh](https://archlinux.org/packages/extra/x86_64/feh/) | Wallpaper manager. |
 
 ## AUR (yay or another helper)
 Install with yay (or your preferred AUR helper):

@@ -48,3 +48,4 @@ udiskie
 flameshot
 ffmpeg
 arandr
+feh
