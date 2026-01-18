@@ -62,6 +62,7 @@ sudo pacman -S --needed --noconfirm \
 | [thunar](https://archlinux.org/packages/extra/x86_64/thunar/) | XFCE file manager. |
 | [unzip](https://archlinux.org/packages/extra/x86_64/unzip/) | Zip extraction utility. |
 | [feh](https://archlinux.org/packages/extra/x86_64/feh/) | Wallpaper manager. |
+| [nwg-look](https://archlinux.org/packages/extra/x86_64/nwg-look/) | GTK theme manager. |
 
 ## AUR (yay or another helper)
 Install with yay (or your preferred AUR helper):

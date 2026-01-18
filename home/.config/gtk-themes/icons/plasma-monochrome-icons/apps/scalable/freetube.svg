@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" width="64" height="64" version="1.1" viewBox="0 0 16.933 16.933" id="svg7" sodipodi:docname="freetube.svg" inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)">
+  <sodipodi:namedview id="namedview7" pagecolor="#9c4444" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:zoom="4.3531261" inkscape:cx="38.478095" inkscape:cy="31.471636" inkscape:window-width="964" inkscape:window-height="1104" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="0" inkscape:current-layer="svg7" showgrid="false"/>
+  <defs id="defs2">
+    <filter style="color-interpolation-filters:sRGB;" inkscape:label="Blur" id="filter3" x="-0.10843471" y="-0.10870992" width="1.2168694" height="1.2174198">
+      <feGaussianBlur stdDeviation="0.5 0.5" result="blur" id="feGaussianBlur3"/>
+    </filter>
+    <style id="current-color-scheme" type="text/css">.ColorScheme-Text {color:#d8dee9} .ColorScheme-Highlight {color:#3b4252}</style>
+    <inkscape:path-effect effect="offset" id="path-effect4" is_visible="true" lpeversion="1.3" linejoin_type="miter" unit="px" offset="-1" miter_limit="4" attempt_force_join="false" update_on_knot_move="true"/>
+    <inkscape:path-effect effect="offset" id="path-effect3" is_visible="true" lpeversion="1.3" linejoin_type="miter" unit="px" offset="-1" miter_limit="4" attempt_force_join="false" update_on_knot_move="true"/>
+    <inkscape:path-effect effect="offset" id="path-effect5" is_visible="true" lpeversion="1.3" linejoin_type="miter" unit="px" offset="-1" miter_limit="4" attempt_force_join="false" update_on_knot_move="true"/>
+    <inkscape:path-effect effect="offset" id="path-effect4-2" is_visible="true" lpeversion="1.3" linejoin_type="miter" unit="px" offset="-1" miter_limit="4" attempt_force_join="false" update_on_knot_move="true"/>
+    <inkscape:path-effect effect="offset" id="path-effect3-9" is_visible="true" lpeversion="1.3" linejoin_type="miter" unit="px" offset="-1" miter_limit="4" attempt_force_join="false" update_on_knot_move="true"/>
+    <inkscape:path-effect effect="offset" id="path-effect5-1" is_visible="true" lpeversion="1.3" linejoin_type="miter" unit="px" offset="-1" miter_limit="4" attempt_force_join="false" update_on_knot_move="true"/>
+  <linearGradient id="linearGradient3" inkscape:collect="always">
+      <stop style="stop-color:#000000;stop-opacity:1;" offset="0" id="stop3"/>
+      <stop style="stop-color:#000000;stop-opacity:0;" offset="1" id="stop4"/>
+    </linearGradient>
+    <linearGradient xmlns:xlink="http://www.w3.org/1999/xlink" inkscape:collect="always" xlink:href="#linearGradient3" id="linearGradient4" x1="13.512321" y1="13.490874" x2="3.3783066" y2="3.3568602" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <metadata id="metadata2">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <ellipse style="opacity:1;fill:none;stroke:#000000;stroke-width:0.582072;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3)" id="path1-5" cx="8.4450111" cy="8.423522" rx="6.8752708" ry="6.8578653"/>
+  <ellipse style="opacity:1;fill:none;stroke-width:0.58207188;stroke-opacity:1;stroke:currentColor;stroke-dasharray:none;fill-opacity:1" id="path1" cx="8.4450111" cy="8.423522" rx="6.8752708" ry="6.8578653" class="ColorScheme-Text"/>
+  <ellipse style="fill:currentColor;stroke:none;stroke-width:0.285844;stroke-dasharray:none;stroke-opacity:1" id="path1-2" cx="8.4557552" cy="8.423522" rx="6.5738997" ry="6.5692253" class="ColorScheme-Highlight"/>
+<path id="path1-6" style="opacity:0.3;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00002;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" class="c" d="M 7.5009059 6.9128078 C 7.159404 6.9128078 6.9121415 7.1573319 6.9121415 7.4988338 L 6.9121415 34.499845 C 6.9121415 38.155008 9.8456629 41.088529 13.500826 41.088529 L 15.089121 41.088529 L 15.089121 7.4988338 C 15.089121 7.1573319 14.841858 6.9128078 14.500357 6.9128078 L 7.5009059 6.9128078 z M 18.501216 6.9128078 C 18.159714 6.9128078 17.912452 7.1573319 17.912452 7.4988338 L 17.912452 14.501023 C 17.912452 14.842525 18.159714 15.087049 18.501216 15.087049 L 34.499178 15.087049 C 38.154341 15.087049 41.087863 12.156266 41.087863 8.5011026 L 41.087863 6.9128078 L 18.501216 6.9128078 z M 17.912452 18.715481 L 17.912452 29.077735 L 29.008607 23.899346 L 17.912452 18.715481 z " transform="matrix(0.1887039,0,0,0.1887039,3.9376062,4.4666365)"/>
+  <path id="path1-6-0" style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.00002;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" class="ColorScheme-Text" d="M 7.5009059 6.9121388 C 7.159404 6.9121388 6.9121415 7.1594013 6.9121415 7.5009032 L 6.9121415 34.499175 C 6.9121415 38.154339 9.8456629 41.08786 13.500826 41.08786 L 15.089121 41.08786 L 15.089121 7.5009032 C 15.089121 7.1594013 14.841858 6.9121388 14.500357 6.9121388 L 7.5009059 6.9121388 z M 18.501216 6.9121388 C 18.159714 6.9121388 17.912452 7.1594013 17.912452 7.5009032 L 17.912452 14.500354 C 17.912452 14.841856 18.159714 15.089118 18.501216 15.089118 L 34.499178 15.089118 C 38.154341 15.089118 41.087863 12.155597 41.087863 8.5004335 L 41.087863 6.9121388 L 18.501216 6.9121388 z M 17.912452 18.71755 L 17.912452 29.077066 L 29.008607 23.898677 L 17.912452 18.71755 z " transform="matrix(0.1887039,0,0,0.1887039,3.9376062,3.9376067)"/>
+<path id="gradient-path1" style="opacity:0.3;baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;enable-background:accumulate;stop-color:#000000;stop-opacity:1;fill:url(#linearGradient4)" d="M 8.4453131 1.2753492 C 4.4913166 1.2753492 1.2794833 4.4784283 1.2794833 8.4236094 C 1.2794833 12.36879 4.4913166 15.572386 8.4453131 15.572386 C 12.39931 15.572386 15.611143 12.36879 15.611143 8.4236094 C 15.611143 4.4784283 12.39931 1.2753492 8.4453131 1.2753492 z "/>
+</svg>

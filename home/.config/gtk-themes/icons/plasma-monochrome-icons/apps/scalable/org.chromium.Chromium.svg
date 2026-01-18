@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" width="64" height="64" version="1.1" viewBox="0 0 16.933 16.933" id="svg7" sodipodi:docname="org.chromium.Chromium.svg" inkscape:version="1.4 (e7c3feb100, 2024-10-09)">
+  <sodipodi:namedview id="namedview7" pagecolor="#9c4444" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:zoom="4.3531261" inkscape:cx="36.984915" inkscape:cy="25.958357" inkscape:window-width="1280" inkscape:window-height="669" inkscape:window-x="180" inkscape:window-y="166" inkscape:window-maximized="0" inkscape:current-layer="svg7" showgrid="false"/>
+  <defs id="defs2">
+    <filter style="color-interpolation-filters:sRGB;" inkscape:label="Blur" id="filter3" x="-0.10843471" y="-0.10870992" width="1.2168694" height="1.2174198">
+      <feGaussianBlur stdDeviation="0.5 0.5" result="blur" id="feGaussianBlur3"/>
+    </filter>
+    <filter style="color-interpolation-filters:sRGB" inkscape:label="Blur" id="filter3-8" x="-0.10843471" y="-0.10870992" width="1.2168694" height="1.2174198">
+      <feGaussianBlur stdDeviation="0.5 0.5" result="blur" id="feGaussianBlur3-7"/>
+    </filter>
+    <style id="current-color-scheme" type="text/css">.ColorScheme-Text {color:#d8dee9} .ColorScheme-Highlight {color:#3b4252}</style><linearGradient id="linearGradient3" inkscape:collect="always">
+      <stop style="stop-color:#000000;stop-opacity:1;" offset="0" id="stop3"/>
+      <stop style="stop-color:#000000;stop-opacity:0;" offset="1" id="stop4"/>
+    </linearGradient>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient3" id="linearGradient4" x1="13.512321" y1="13.490874" x2="3.3783066" y2="3.3568602" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <metadata id="metadata2">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <ellipse style="opacity:1;fill:none;stroke:#000000;stroke-width:0.582072;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3)" id="path1-5" cx="8.4450111" cy="8.423522" rx="6.8752708" ry="6.8578653"/>
+  <ellipse style="opacity:1;fill:none;stroke-width:0.58207188;stroke-opacity:1;stroke:currentColor;stroke-dasharray:none;fill-opacity:1" id="path1" cx="8.4450111" cy="8.423522" rx="6.8752708" ry="6.8578653" class="ColorScheme-Text"/>
+  <ellipse style="fill:currentColor;stroke:none;stroke-width:0.285844;stroke-dasharray:none;stroke-opacity:1" id="path1-2" cx="8.4557552" cy="8.423522" rx="6.5738997" ry="6.5692253" class="ColorScheme-Highlight"/>
+<path style="fill:#000000;stroke:none;stroke-width:0.0964386;stroke-dasharray:none;stroke-opacity:0.6;opacity:0.3" d="M 8.4248318,5.2063683 A 3.8219661,3.8264923 0 0 0 5.4126446,6.6795679 L 6.5520686,8.654994 A 1.9109831,1.9132461 0 0 1 8.4248318,7.1196143 H 11.730833 A 3.8219661,3.8264923 0 0 0 8.4248318,5.2063683 Z M 5.1178747,7.1243978 A 3.8219661,3.8264923 0 0 0 4.6028656,9.0328602 3.8219661,3.8264923 0 0 0 7.8969226,12.816303 L 9.0358681,10.84566 A 1.9109831,1.9132461 0 0 1 8.4248318,10.946105 1.9109831,1.9132461 0 0 1 6.7723092,9.9894829 h -0.00288 z M 8.4248318,7.5979256 A 1.4332374,1.4349344 0 0 0 6.9915944,9.0328602 1.4332374,1.4349344 0 0 0 8.4248318,10.467793 1.4332374,1.4349344 0 0 0 9.8580699,9.0328603 1.4332374,1.4349344 0 0 0 8.4248318,7.5979256 Z m 1.2607712,0 a 1.9109831,1.9132461 0 0 1 0.650211,1.4349346 1.9109831,1.9132461 0 0 1 -0.257505,0.9566227 h 0.002 L 8.4257336,12.859351 A 3.8219661,3.8264923 0 0 0 12.24678,9.0328602 3.8219661,3.8264923 0 0 0 11.964912,7.5979256 Z" id="path2-8"/>
+  <path style="opacity:1;fill:currentColor;stroke:none;stroke-width:0.0964386;stroke-dasharray:none;stroke-opacity:0.6" d="M 8.4248318,4.6772121 A 3.8219661,3.8264923 0 0 0 5.4126446,6.1504117 l 1.139424,1.9754261 A 1.9109831,1.9132461 0 0 1 8.4248318,6.5904581 H 11.730833 A 3.8219661,3.8264923 0 0 0 8.4248318,4.6772121 Z M 5.1178747,6.5952416 A 3.8219661,3.8264923 0 0 0 4.6028656,8.503704 3.8219661,3.8264923 0 0 0 7.8969226,12.287147 L 9.0358681,10.316504 A 1.9109831,1.9132461 0 0 1 8.4248318,10.416949 1.9109831,1.9132461 0 0 1 6.7723092,9.4603267 h -0.00288 z M 8.4248318,7.0687694 A 1.4332374,1.4349344 0 0 0 6.9915944,8.503704 1.4332374,1.4349344 0 0 0 8.4248318,9.9386366 1.4332374,1.4349344 0 0 0 9.8580699,8.5037041 1.4332374,1.4349344 0 0 0 8.4248318,7.0687694 Z m 1.2607712,0 a 1.9109831,1.9132461 0 0 1 0.650211,1.4349346 1.9109831,1.9132461 0 0 1 -0.257505,0.9566227 h 0.002 L 8.4257336,12.330195 A 3.8219661,3.8264923 0 0 0 12.24678,8.503704 3.8219661,3.8264923 0 0 0 11.964912,7.0687694 Z" id="path2" class="ColorScheme-Text"/>
+<path id="gradient-path1" style="opacity:0.3;baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;enable-background:accumulate;stop-color:#000000;stop-opacity:1;fill:url(#linearGradient4)" d="M 8.4453131 1.2753492 C 4.4913166 1.2753492 1.2794833 4.4784283 1.2794833 8.4236094 C 1.2794833 12.36879 4.4913166 15.572386 8.4453131 15.572386 C 12.39931 15.572386 15.611143 12.36879 15.611143 8.4236094 C 15.611143 4.4784283 12.39931 1.2753492 8.4453131 1.2753492 z "/>
+</svg>

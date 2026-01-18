@@ -98,6 +98,10 @@ rsync -avh ~/dotfiles/home/ ~/
 
 # Ensure autostart script is executable (Qtile may call it)
 chmod +x ~/.config/qtile/autostart.sh
+
+# Copy GTK themes to all users
+sudo cp -r ~/dotfiles/home/.config/gtk-themes/themes/ /usr/share/themes/
+sudo cp -r ~/dotfiles/home/.config/gtk-themes/icons/ /usr/share/icons/
 ```
 
 ---

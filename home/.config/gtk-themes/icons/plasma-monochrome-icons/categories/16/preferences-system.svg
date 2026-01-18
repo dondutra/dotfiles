@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="64"
+   height="64"
+   version="1.1"
+   viewBox="0 0 16.933 16.933"
+   id="svg7"
+   sodipodi:docname="preferences-system.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#9c4444"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="6.15625"
+     inkscape:cx="36.467005"
+     inkscape:cy="29.64467"
+     inkscape:window-width="1183"
+     inkscape:window-height="941"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg7"
+     showgrid="false" />
+  <defs
+     id="defs2">
+    <rect
+       x="67.489848"
+       y="35.60533"
+       width="15.337563"
+       height="22.51269"
+       id="rect3808" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Blur"
+       id="filter1283"
+       x="-0.082344266"
+       y="-0.082344266"
+       width="1.1646885"
+       height="1.1646885">
+      <feGaussianBlur
+         stdDeviation="0.5 0.5"
+         result="blur"
+         id="feGaussianBlur1281" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Blur"
+       id="filter1694"
+       x="-0.94955398"
+       y="-0.2118907"
+       width="2.899108"
+       height="1.4237814">
+      <feGaussianBlur
+         stdDeviation="0.2 0.2"
+         result="blur"
+         id="feGaussianBlur1692" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Blur"
+       id="filter3148"
+       x="-0.94955398"
+       y="-0.2118907"
+       width="2.899108"
+       height="1.4237814">
+      <feGaussianBlur
+         stdDeviation="0.2 0.2"
+         result="blur"
+         id="feGaussianBlur3146" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath44">
+      <path
+         id="path46"
+         style="display:block;opacity:0.85;fill:#f2f2f2;stroke-width:4.39162"
+         d="m 17.570312,8.4453125 a 6.5431988,7.4283052 9.9958727e-8 0 0 -6.535156,7.4394535 6.5431988,7.4283052 9.9958727e-8 0 0 6.552735,7.417968 6.5431988,7.4283052 9.9958727e-8 0 0 6.535156,-7.4375 6.5431988,7.4283052 9.9958727e-8 0 0 -6.552735,-7.4199215 z M 45.646484,41.177734 a 6.5431986,7.0703472 2.4665357e-6 0 0 -6.533203,7.080078 6.5431986,7.0703472 2.4665357e-6 0 0 6.550781,7.060547 6.5431986,7.0703472 2.4665357e-6 0 0 6.535157,-7.080078 6.5431986,7.0703472 2.4665357e-6 0 0 -6.552735,-7.060547 z" />
+    </clipPath>
+    <inkscape:path-effect
+       effect="powerclip"
+       id="path-effect48"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false"
+       message="" />
+    <style
+       id="current-color-scheme"
+       type="text/css">.ColorScheme-Text {color:#d8dee9} .ColorScheme-Highlight {color:#3b4252}</style>
+  </defs>
+  <metadata
+     id="metadata2">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     id="path99"
+     style="fill:currentColor;stroke-width:0.0114407;stroke-opacity:0.6"
+     d="M 9.9831632,3.9139015 C 8.7939018,3.9103275 7.115455,3.9156147 6.2533979,3.9263522 4.7154369,3.9455115 4.6830255,3.9471988 4.5258618,3.9979435 3.9911749,4.1705825 3.5635897,4.5424677 3.3375971,5.0321309 3.2071257,5.3148301 3.1780728,5.4586371 3.1780728,5.8180817 c 0,0.3834576 0.030416,0.5169603 0.1929859,0.8466483 0.2788855,0.5655698 0.8266152,0.9577296 1.4520638,1.038856 0.093072,0.012047 1.6412708,0.016271 3.6955263,0.01012 C 12.399425,7.7020801 12.241665,7.7080704 12.589253,7.5635182 13.042797,7.3749005 13.433065,6.9849788 13.611767,6.5425599 13.719497,6.275833 13.745594,6.1327507 13.745609,5.806412 13.745624,5.4636617 13.717196,5.3251807 13.586085,5.0360241 13.344393,4.5029956 12.908188,4.135703 12.319228,3.9691515 12.147871,3.9206939 12.115712,3.9203159 9.9831632,3.9139015 Z m 1.5648998,0.6521059 c 0.397639,0.00148 0.716624,0.1323788 0.986719,0.404648 0.247891,0.2498879 0.354066,0.5039585 0.354066,0.8474263 0,0.337231 -0.116631,0.6115534 -0.364962,0.8583209 -0.175841,0.1747333 -0.364558,0.2813549 -0.609306,0.3439507 -0.209374,0.053551 -0.526373,0.057078 -0.726811,0.00855 C 10.768221,6.9273571 10.407317,6.6163531 10.257079,6.2266204 10.194138,6.0633452 10.172584,5.7564737 10.211167,5.5706238 10.285347,5.2132989 10.556618,4.8771537 10.902959,4.7123031 11.144377,4.597394 11.286737,4.5650507 11.548063,4.5660074 Z M 8.5038632,9.3081712 C 4.5563209,9.3079976 4.7094355,9.3032663 4.3663373,9.4326784 4.1463354,9.5156603 3.9007604,9.6735358 3.7297945,9.8419953 2.8916523,10.66785 3.0211365,12.05937 3.9959285,12.702545 c 0.2994497,0.197579 0.5325202,0.281091 0.8622118,0.308934 0.155459,0.0131 4.385525,0.01099 6.5319527,-0.0032 l 0.869993,-0.0054 0.217111,-0.07549 c 0.279598,-0.09707 0.489823,-0.222637 0.691014,-0.412429 0.398158,-0.375603 0.589852,-0.81621 0.589852,-1.354014 0,-0.511202 -0.173471,-0.936395 -0.53149,-1.3010996 C 12.970997,9.5995448 12.685366,9.4375395 12.334013,9.353305 12.150773,9.309375 12.049369,9.308328 8.5038632,9.3081712 Z M 5.3810701,9.9065833 c 0.035059,4.882e-4 0.070203,0.00222 0.1050532,0.00547 1.0004186,0.092654 1.5805021,0.9680177 1.1765923,1.7750037 -0.1665471,0.332751 -0.5495531,0.614852 -0.9470324,0.698019 -0.088094,0.01844 -0.2478747,0.03271 -0.3548452,0.03191 C 4.9332111,12.413805 4.5627346,12.261831 4.2931892,11.978069 3.9178919,11.582979 3.8407336,11.086339 4.0846397,10.628725 4.3160471,10.194561 4.8551776,9.899256 5.3810701,9.9065833 Z"
+     class="ColorScheme-Text" />
+  <text
+     xml:space="preserve"
+     transform="matrix(0.20969615,0,0,0.20969615,0.38395492,0.60283652)"
+     id="text3806"
+     style="font-size:6.66667px;white-space:pre;shape-inside:url(#rect3808);fill:#999999;stroke-width:2" />
+</svg>

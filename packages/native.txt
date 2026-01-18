@@ -49,3 +49,4 @@ flameshot
 ffmpeg
 arandr
 feh
+nwg-look
