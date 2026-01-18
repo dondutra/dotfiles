@@ -77,7 +77,6 @@ yay -S --needed --noconfirm \
 | [bibata-cursor-theme-bin](https://aur.archlinux.org/packages/bibata-cursor-theme-bin) | Bibata cursor theme (binary). |
 | [ccat](https://aur.archlinux.org/packages/ccat) | Colorizing cat (Go). |
 | [discord](https://archlinux.org/packages/extra/x86_64/discord/) | Discord desktop client. |
-| [gtk-theme-material-black](https://aur.archlinux.org/packages/gtk-theme-material-black) | Material‑style dark GTK theme. |
 | [sublime-text](https://aur.archlinux.org/packages/sublime-text-4) | Sublime Text (stable). |
 | [zen-browser-bin](https://aur.archlinux.org/packages/zen-browser-bin) | Zen Browser (binary). |
 
