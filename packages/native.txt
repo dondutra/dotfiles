@@ -50,3 +50,4 @@ ffmpeg
 arandr
 feh
 nwg-look
+mission-center
