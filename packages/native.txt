@@ -51,3 +51,4 @@ arandr
 feh
 nwg-look
 mission-center
+redshift
