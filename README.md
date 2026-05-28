@@ -63,9 +63,9 @@ See [packages/README.md](packages/README.md) for installation steps covering bot
 
 ## Enable system services
 
-1) Enable LightDM:
+1) Enable LyDM:
    ```bash
-   sudo systemctl enable lightdm.service
+   sudo systemctl enable ly@tty2.service
    sudo systemctl set-default graphical.target
    ```
 
@@ -76,16 +76,16 @@ See [packages/README.md](packages/README.md) for installation steps covering bot
 
 ---
 
-## Reboot & continue to lightdm
+## Reboot & continue to lydm
 
 > Note: Rebooting here may save you from a lot of problems later.
 ```bash
 reboot
 ```
 
-Now the login manager (lightdm) should open. Enter your credentials. Default qtile session should start.
+Now the login manager (lydm) should open. Enter your credentials. Default qtile session should start.
 
-> Note: sometimes lightdm might use a different keyboard layout by default which leads to incorrect credentials by mistake. Double check the characters you are inputting!
+> Note: maybe a different keyboard layout is being used by default which leads to incorrect credentials by mistake. Double check the characters you are inputting!
 
 ---
 
@@ -182,7 +182,7 @@ Table with my qtile keybindings. You may change them as you like in the [qtile c
 
 ## Entering QTile without a display manager (use **startx**)
 
-Sometimes, lightdm is the only problem and qtile is fine. If you don't need a graphical login but you want everything else you may want to proceed as follows:
+In case the Display Manager (DM) is not working properly or you just want to start QTile manually, you may initialize the QTile session as follows:
 ```bash
 startx
 ```

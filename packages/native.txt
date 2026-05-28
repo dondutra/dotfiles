@@ -9,9 +9,7 @@ exa
 brightnessctl
 xorg
 xorg-xinit
-lightdm
-lightdm-gtk-greeter
-lightdm-slick-greeter
+ly
 qtile
 picom
 rofi
