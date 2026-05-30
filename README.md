@@ -87,8 +87,8 @@ rsync -avh ~/dotfiles/home/ ~/
 chmod +x ~/.config/qtile/autostart.sh
 
 # Copy GTK themes to all users
-sudo cp -r ~/dotfiles/home/.config/gtk-themes/themes/ /usr/share/themes/
-sudo cp -r ~/dotfiles/home/.config/gtk-themes/icons/ /usr/share/icons/
+sudo cp -r ~/dotfiles/home/.config/gtk-themes/themes/* /usr/share/themes/
+sudo cp -r ~/dotfiles/home/.config/gtk-themes/icons/* /usr/share/icons/
 ```
 
 ---
