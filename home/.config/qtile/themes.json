@@ -25,6 +25,11 @@
             "focus": "#a3cca7",
             "module_bg": "#282a36",
             "wallpaper": "~/.config/wallpapers/nemu_minimalist_wp.png"
+        },
+        "mayura": {
+            "focus": "#d1d1d1",
+            "module_bg": "#282a36",
+            "wallpaper": "~/.config/wallpapers/mayura_minimalist_wp.png"
         }
     }
 }
