@@ -21,7 +21,7 @@ sudo pacman -S --needed --noconfirm \
 | [base-devel](https://archlinux.org/packages/core/any/base-devel/) | Build essentials meta package. |
 | [brightnessctl](https://archlinux.org/packages/extra/x86_64/brightnessctl/) | Control screen brightness. |
 | [ttf-dejavu](https://archlinux.org/packages/extra/any/ttf-dejavu/) | DejaVu TTF fonts. |
-| [lightdm](https://archlinux.org/packages/extra/x86_64/lightdm/) | Display manager. |
+| [ly](https://archlinux.org/packages/extra/x86_64/ly/) | Display manager. |
 | [rsync](https://archlinux.org/packages/extra/x86_64/rsync/) | Fast file sync/transfer. |
 | [fastfetch](https://archlinux.org/packages/extra/x86_64/fastfetch/) | Fast system info fetch. |
 | [ttf-font-awesome](https://archlinux.org/packages/extra/any/ttf-font-awesome/) | Font Awesome TTF. |

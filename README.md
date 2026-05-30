@@ -76,19 +76,6 @@ See [packages/README.md](packages/README.md) for installation steps covering bot
 
 ---
 
-## Reboot & continue to lydm
-
-> Note: Rebooting here may save you from a lot of problems later.
-```bash
-reboot
-```
-
-Now the login manager (lydm) should open. Enter your credentials. Default qtile session should start.
-
-> Note: maybe a different keyboard layout is being used by default which leads to incorrect credentials by mistake. Double check the characters you are inputting!
-
----
-
 ## Place the dotfiles
 
 > Note: default qtile keybinding for opening a terminal {super (windows) + enter}. Alternatively: {ctrl + alt + F2}
@@ -107,6 +94,7 @@ sudo cp -r ~/dotfiles/home/.config/gtk-themes/icons/ /usr/share/icons/
 ---
 
 ## Copy system configs (/etc)
+
 ```bash
 sudo rsync -avh ~/dotfiles/etc/ /etc/
 ```
@@ -115,9 +103,14 @@ This copies the entire `etc` directory from the repo into `/etc`. It only adds/o
 ---
 
 ## Reboot
+
 ```bash
 reboot
 ```
+
+Now the login manager (lydm) should open. Enter your credentials. Default qtile session should start.
+
+> Note: maybe a different keyboard layout is being used by default which leads to incorrect credentials by mistake. Double check the characters you are inputting!
 
 **Everything should be working as expected now. If everything is fine you may leave the guide here and optionally cleanup as seen next.**
 
@@ -134,7 +127,7 @@ rm -rf ~/dotfiles
 
 ---
 
-**Now installation is fully complete.** Below we'll cover some useful tips/troubleshooting you may want to know in order to use my personalized enviroment correctly.
+**Now installation is fully complete.** Below I'll cover some useful tips/troubleshooting you may want to know in order to use my personalized enviroment correctly.
 
 ---
 
@@ -177,6 +170,81 @@ Table with my qtile keybindings. You may change them as you like in the [qtile c
 | mod+control+q         | Shutdown Qtile          |
 | mod+r                 | Command prompt          |
 | mod+l                 | Lock session            |
+
+---
+
+## Recommended configurations for running in a Virtual Machine
+
+I mainly use this setup in a Virtual Machine, that's the reason I dind't update to Wayland and stuck with X11, since running Wayland in a Virtual Machine is a nightmare because of the virtual video drivers. So here I explain the most stable configuration (though not the most aesthetic) I personally use:
+
+### Virtualization Software & VM settings
+
+- Virtualization Software: VMware Workstation Pro
+- Memory: 6GB
+- Processors: 4 cores
+- Hard Disk: 60GB
+- Display: Do NOT activate 3D graphics acceleration
+
+> Of course, these are the recommended settings that work for me, you may find a better config for you.
+
+### Dotfiles modifications
+
+The main issue here is the compositor (Picom) which doesn't work well at all with virtual video drivers. So just remove it from [`autostart.sh`](home/.config/qtile/autostart.sh):
+```bash
+picom --config ~/.config/picom/picom.conf & # Remove this line
+```
+> You may want to kill the current process first if it's too buggy: `pkill picom`
+
+Now it is less aesthetic, but in order to not let the top bar remain horrible, change the "transparency" in the [qtile config file](home/.config/qtile/config.py):
+```bash
+# Remove this line
+transparent = "#00000000" &
+
+# Add the following line just after the module_bg initialization
+module_bg = theme["module_bg"]
+focus_color = theme["focus"]
+transparent = module_bg # <---- add this line
+```
+
+Moreover, the display configuration is probably not right since the name of the display is most likely different, something like Virtual-1, and you'll probably be using just one display instead of two. Thereby you have to change the [`display initialization`](home/.xprofile):
+```bash
+# Check your available display configurations
+xrandr
+
+# Change the following line:
+xrandr --output DP-0 --off --output DP-1 --off --output HDMI-0 --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-2 --primary --mode 1920x1080 --rate 144 --pos 0x0 --rotate normal &
+
+# To the desired configuration (example):
+xrandr --output Virtual-1 --primary --mode 1920x1080 --rate 60 --pos 0x0 --rotate normal & 
+```
+
+Finally, for activating bidirecctional clipboard follow the next steps (VMware only):
+
+1) Configure the host (VMware)
+- Go to VM > Settings > Options > Guest Isolation
+- Mark Enable copy and paste and Enable drag and drop
+
+2) Install dependencies
+```bash
+sudo pacman -S open-vm-tools gtkmm3
+```
+
+3) Enable services
+```bash
+sudo systemctl enable --now vmtoolsd.service
+sudo systemctl enable --now vmware-vmblock-fuse.service
+```
+
+4) Add automatic initialization
+- Add the following line to [`.xprofile`](home/.xprofile):
+```bash
+vmware-user &
+```
+
+Don't forget to reboot after all the modifications:
+```bash
+reboot
+```
 
 ---
 
@@ -256,7 +324,7 @@ vsync = true; # comment or remove this line
 > I strongly recommend to do your own research on this since it may vary from one computer to another.
 
 **C) Just use my enviroment without picom:**
-> Things will look less aesthetic (no transparency on terminal or no rounded borders) but at least it's working.
+> Things will look less aesthetic (no transparency on terminal or no rounded borders) but at least it's working. See the Virtualization Software & VM settings section to at least change the horrible top bar.
 
 Take out the picom launch command line from [`qtile autostart`](home/.config/qtile/autostart.sh) and optionally uninstall picom.
 
